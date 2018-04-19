@@ -70,7 +70,7 @@ public class FilterCore {
             if(patternMatcher.matches(filterRule.getPattern(), path)){
                 if(filterRule.getAnno()){
                     matchPass = true;
-                }else if(!authc && filterRule.getAuthc()){
+                }else if(!authc && !filterRule.getAuthc()){
                     matchPass = false;
                 }else {
                     boolean userHasRole = filterRule.userHasRole(rolesOfUser);
