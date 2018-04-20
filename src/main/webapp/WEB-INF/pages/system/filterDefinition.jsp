@@ -9,7 +9,7 @@
 	</head>
 
 	<body>
-	<form id="submitForm" action="${BASE_PATH}/system/filterDefinition/update.ac" class="eossForm" method="post">
+	<form id="submitForm" action="${BASE_PATH}/system/filterDefinition/update" class="eossForm" method="post">
 		<input type="hidden" name="id" value="${filterDefinition.id}"/>
 		<table class="eossFromTable">
 			<tr class="panel-header">
