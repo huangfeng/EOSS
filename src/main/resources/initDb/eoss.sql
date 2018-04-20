@@ -2,7 +2,8 @@
 SQLyog 企业版 - MySQL GUI v8.14 
 MySQL - 5.6.24 : Database - eoss
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -106,7 +107,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`ID`,`username`,`password`,`salt`,`CREATE_DATETIME`) values (1,'admin','96e79218965eb72c92a549dd5a330112','abc','2012-12-22 19:25:48');
+insert  into `user`(`ID`,`username`,`password`,`salt`,`locked`,`disabled`,`CREATE_DATETIME`) values (1,'admin','f717c48426a62bad132a9b7718a02ff4','683',0,0,'2012-12-22 19:25:48');
 
 /*Table structure for table `user_menu` */
 
