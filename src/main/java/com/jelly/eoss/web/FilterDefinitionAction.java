@@ -2,7 +2,9 @@ package com.jelly.eoss.web;
 
 import com.jelly.eoss.dao.BaseService;
 import com.jelly.eoss.model.FilterDefinition;
+import com.jelly.eoss.service.FilterDefinitionReloadService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 public class FilterDefinitionAction extends BaseAction{
 	@Resource
 	private BaseService baseService;
+	@Autowired
+	FilterDefinitionReloadService filterDefinitionReloadService;
 
 	@RequestMapping(value = "/toUpdate")
 	public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -29,7 +33,10 @@ public class FilterDefinitionAction extends BaseAction{
 		filterDefinition.setRule(StringUtils.trimToNull(filterDefinition.getRule()));
 
 		this.baseService.myUpdate(FilterDefinition.UpdateWithNull, filterDefinition);
-		return new ModelAndView("/system/filterDefinition/toUpdate.ac");
+        filterDefinitionReloadService.reload();
+        request.getRequestDispatcher("/system/filterDefinition/toUpdate").forward(request, response);
+
+		return null;
 	}
 	
 	//getter and setter

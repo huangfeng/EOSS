@@ -81,7 +81,7 @@ public class RoleAction extends BaseAction{
 		//插入角色对应的权限
 		this.batchInsertRolePermission(role.getId(), permissionIdsStr);
 
-		request.getRequestDispatcher("/system/role/toList.ac").forward(request, response);
+		request.getRequestDispatcher("/system/role/toList").forward(request, response);
 		return null;
 	}
 	
@@ -117,7 +117,7 @@ public class RoleAction extends BaseAction{
 		
 		//更新角色原有权限
 		this.batchInsertRolePermission(role.getId(), permissionIdsStr);
-		request.getRequestDispatcher("/system/role/toList.ac").forward(request, response);
+		request.getRequestDispatcher("/system/role/toList").forward(request, response);
 		return null;
 	}
 	

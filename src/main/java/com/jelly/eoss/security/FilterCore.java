@@ -22,9 +22,9 @@ public class FilterCore {
     List<FilterRule> filterRuleList = null;
     private String loginUrl;
 
-    public void init(String main, String filterDefinition){
-        initMain(main);
-        filterRuleList = FilterRuleFactory.initRuleByFilterDefinition(filterDefinition);
+    public void init(String config, String lines){
+        initMain(config);
+        filterRuleList = FilterRuleFactory.initRuleByFilterDefinition(lines);
     }
 
     private void initMain(String config){
@@ -124,14 +124,14 @@ public class FilterCore {
         filterCore.init(null, "" +
                 "#the [main] section must config\n" +
                 "                [main]\n" +
-                "                loginUrl = /toLogin.ac\n" +
+                "                loginUrl = /toLogin\n" +
                 "\n" +
                 "\t\t\t\t#the [urls] section must config\n" +
                 "                [urls]\n" +
                 "                / = anon\n" +
                 "                /static/** = anon\n" +
-                "                /toLogin.ac = anon\n" +
-                "                /login.ac = anon\n" +
+                "                /toLogin = anon\n" +
+                "                /login = anon\n" +
                 "                #/system/** = roles[系统管理员]\n" +
                 "                /system/** = roles[系统管理员,系统管理员2], perms[user:add,user:delete,user:list,user*]\n" +
                 "                /business/** = roles[业务员]\n" +
@@ -139,7 +139,7 @@ public class FilterCore {
                 "");
 
         filterCore.doFilter("/", true, rolesOfUser, permsOfUser);
-        filterCore.doFilter("/toLogin.ac", true, rolesOfUser, permsOfUser);
+        filterCore.doFilter("/toLogin", true, rolesOfUser, permsOfUser);
         filterCore.doFilter("/static/images", true, rolesOfUser, permsOfUser);
         filterCore.doFilter("/static/js/jquery/jquery.js", true, rolesOfUser, permsOfUser);
         filterCore.doFilter("/system/permission/toUpdate", true, rolesOfUser, permsOfUser);

@@ -24,12 +24,12 @@ public class FilterRuleFactory {
     public static final String COLON = ":";
     public static final String MID_BRACE_END = "]";
 
-    public static List<FilterRule> initRuleByFilterDefinition(String filterDefinition){
+    public static List<FilterRule> initRuleByFilterDefinition(String lines){
         List<FilterRule> filterRuleList = new LinkedList<>();
 
         LineReader lineReader = null;
         try {
-            lineReader = new LineReader(new StringReader(filterDefinition));
+            lineReader = new LineReader(new StringReader(lines));
             String line = null;
             while((line = lineReader.readLine()) != null){
                 line = StringUtils.trimToNull(line);

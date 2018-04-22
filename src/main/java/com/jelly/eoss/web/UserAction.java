@@ -90,7 +90,7 @@ public class UserAction extends BaseAction {
         this.batchInsertUserRole(user.getId(), roleIds);
         //插入资源
         this.batchInsertUserResource(user.getId(), resourcesIds);
-        request.getRequestDispatcher("/system/user/toList.ac").forward(request, response);
+        request.getRequestDispatcher("/system/user/toList").forward(request, response);
         return null;
     }
 
@@ -162,7 +162,7 @@ public class UserAction extends BaseAction {
         //更新资源
         String resourceIds = request.getParameter("resourceIds");
         this.batchInsertUserResource(user.getId(), resourceIds);
-        request.getRequestDispatcher("/system/user/toList.ac").forward(request, response);
+        request.getRequestDispatcher("/system/user/toList").forward(request, response);
 
         //更新用户menu菜单ids缓存
         String menuTreeIdsOfUser = this.menuService.queryMenuTreeIdsOfUser(user);
