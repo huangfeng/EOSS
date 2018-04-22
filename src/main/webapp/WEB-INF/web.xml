@@ -55,9 +55,18 @@
                 /static/** = anon
                 /toLogin = anon
                 /login = anon
-                #/system/** = roles[系统管理员]
-                /system/** = roles[系统管理员,系统管理员2], perms[user:add,user:delete,user:list,user*]
-                /business/** = roles[业务员]
+
+                /system/**/*list* = authc, roles[系统查看员,系统管理员]
+                /system/**/*query* = authc, roles[系统查看员,系统管理员]
+                /system/**/*select* = authc, roles[系统查看员,系统管理员]
+                /system/**/*find* = authc, roles[系统查看员,系统管理员]
+
+                /system/**/*add* = authc, roles[系统管理员]
+                /system/**/*update* = authc, roles[系统管理员]
+                /system/**/*delete* = authc, roles[系统管理员]
+
+                /system/** = authc
+
                 /** = authc
 
                 #/system/** = roles[系统管理员,系统管理员2]; perms[user:add,user:delete,user:list,user*]

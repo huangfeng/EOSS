@@ -82,18 +82,30 @@ public class FilterRuleFactory {
 
         String[] rules = StringUtils.splitByWholeSeparator(ruleSegment, SEMICOLON);
         for(String rule : rules){
-            rule = StringUtils.trimToNull(rule);
+            rule = StringUtils.trim(rule);
             if(StringUtils.isEmpty(rule)){
                 continue;
+            }
+
+            //anno
+            if(StringUtils.equals(rule, RuleKey.anon.toString())){
+                filterRule.setAnno(true);
+                continue;
+            }
+
+            //authc
+            if(StringUtils.startsWith(rule, RuleKey.authc.toString())){
+                filterRule.setAuthc(true);
+                rule = StringUtils.substringAfter(rule, COMMA);
+                rule = StringUtils.trim(rule);
             }
 
             if(!StringUtils.endsWith(rule, "]")){
                 rule += "]";
             }
 
-            if(StringUtils.equals(rule, RuleKey.anon.toString())){
-                filterRule.setAnno(true);
-            }else if(StringUtils.startsWith(rule, RuleKey.roles.toString())){
+            //role, permission
+            if(StringUtils.startsWith(rule, RuleKey.roles.toString())){
                 parseRoles(filterRule, rule);
             }else if(StringUtils.startsWith(rule, RuleKey.perms.toString())){
                 parsePerms(filterRule, rule);
@@ -130,13 +142,6 @@ public class FilterRuleFactory {
             if(StringUtils.isNotEmpty(perm)){
                 filterRule.getPermSet().add(perm);
                 log.debug("filter rule init, add perm={}", perm);
-            }
-
-            if(i == 0){
-                String permAll = StringUtils.substringBefore(perm, COLON);
-                permAll += ":*";
-                filterRule.getPermSet().add(permAll);
-                log.debug("filter rule init, add permAll={}", permAll);
             }
         }
     }

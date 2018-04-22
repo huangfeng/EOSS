@@ -27,14 +27,14 @@ public class FilterCore {
         filterRuleList = FilterRuleFactory.initRuleByFilterDefinition(filterDefinition);
     }
 
-    private void initMain(String main){
-        if(StringUtils.isEmpty(main)){
+    private void initMain(String config){
+        if(StringUtils.isEmpty(config)){
             return;
         }
 
         LineReader lineReader = null;
         try {
-            lineReader = new LineReader(new StringReader(main));
+            lineReader = new LineReader(new StringReader(config));
             String line = null;
             while((line = lineReader.readLine()) != null){
                 line = StringUtils.trimToNull(line);
@@ -42,7 +42,14 @@ public class FilterCore {
                     continue;
                 }
 
-                String[] nameValue = StringUtils.split(main, FilterRuleFactory.EQUAL);
+                if(StringUtils.startsWith(line, "#")){
+                    continue;
+                }
+
+                String[] nameValue = StringUtils.split(line, FilterRuleFactory.EQUAL);
+                if(nameValue == null || nameValue.length == 1){
+                    continue;
+                }
                 String name = StringUtils.trimToEmpty(nameValue[0]);
                 String value = StringUtils.trimToEmpty(nameValue[1]);
 
@@ -65,14 +72,15 @@ public class FilterCore {
         }
 
         boolean matchPass = false;
-        log.debug("------will do filter path={}------", path);
+        log.debug("------start do filter path={}------", path);
+        path = StringUtils.lowerCase(path);
         for(FilterRule filterRule : filterRuleList){
             if(patternMatcher.matches(filterRule.getPattern(), path)){
-                if(filterRule.getAnno()){
+                if(filterRule.getAnno()){//无任何规则
                     matchPass = true;
-                }else if(!authc && !filterRule.getAuthc()){
+                }else if(filterRule.getAuthc() && !authc){//必须登录，也就是经过了(认证)
                     matchPass = false;
-                }else {
+                }else {//必须登录，且有相关的(授权)
                     boolean userHasRole = filterRule.userHasRole(rolesOfUser);
                     boolean userHasPerm = filterRule.userHasPerm(permsOfUser);
 

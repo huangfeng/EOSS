@@ -14,7 +14,7 @@ public class FilterRule {
     private String pattern;
     private String rule;
     private boolean anno = false;
-    private boolean authc = true;
+    private boolean authc = false;
     private Set<String> roleSet = new HashSet<>();
     private Set<String> permSet = new HashSet<>();
 
@@ -22,6 +22,9 @@ public class FilterRule {
     }
 
     public boolean userHasRole(Collection<String> rolesOfUser){
+        if(CollectionUtils.isEmpty(rolesOfUser)){
+            return false;
+        }
         if(CollectionUtils.isEmpty(roleSet)){
             return true;
         }
@@ -36,6 +39,9 @@ public class FilterRule {
     }
 
     public boolean userHasPerm(Collection<String> permsOfUser){
+        if(CollectionUtils.isEmpty(permsOfUser)){
+            return false;
+        }
         if(CollectionUtils.isEmpty(permSet)){
             return true;
         }

@@ -107,7 +107,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`ID`,`username`,`password`,`salt`,`locked`,`disabled`,`CREATE_DATETIME`) values (1,'admin','f717c48426a62bad132a9b7718a02ff4','683',0,0,'2012-12-22 19:25:48');
+INSERT  INTO `user`(`ID`,`username`,`password`,`salt`,`CREATE_DATETIME`) VALUES (1,'admin','89d230a8172063206a6ed0f92570deab','abc','2012-12-22 19:25:48');
 
 /*Table structure for table `user_menu` */
 

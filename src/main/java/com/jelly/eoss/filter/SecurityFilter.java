@@ -61,12 +61,13 @@ public class SecurityFilter implements Filter {
                 }
                 //跳转到登陆页面
                 log.debug("security filter, deney, " + request.getRequestURI());
-                String html = "<script type=\"text/javascript\">top.window.location.href=\"_BP_/toLogin.ac\"</script>";
+                String html = "<script type=\"text/javascript\">top.window.location.href=\"_BP_/toLogin\"</script>";
                 html = html.replace("_BP_", Const.BASE_PATH);
                 response.getWriter().write(html);
                 return;
             }else{
-                request.getRequestDispatcher("/401.jsp").forward(request, response);
+//                request.getRequestDispatcher("/401.jsp").forward(request, response);
+                response.getWriter().write("401！Not AuthorizationInfo");
             }
         }
 	}

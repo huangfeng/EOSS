@@ -2,6 +2,7 @@ package com.jelly.eoss.web;
 
 import com.jelly.eoss.dao.BaseService;
 import com.jelly.eoss.service.MenuService;
+import com.jelly.eoss.util.security.Digest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,5 +38,9 @@ public class TestAction extends BaseAction{
 
 	public void setBaseDao(BaseService baseDao) {
 		this.baseDao = baseDao;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(Digest.GetMD5("111111" + "abc"));
 	}
 }

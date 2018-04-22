@@ -15,12 +15,13 @@ $(function(){
 				data: 'id=' + $this.attr('value'),
 				url: EossGlobal.basePath + '/system/user/delete',
 				success: function(rs){
+					console.info(rs);
 					if(rs == 'y'){
 						top.$.messager.alert('提示','操作已成功', 'info', function(){
 							$('#submitForm').submit();
 						});
 					}else{
-						top.$.messager.alert('提示','操作失败，请联系系统管理员');
+                        top.$.messager.alert('提示', '操作失败，请联系系统管理员');
 					}
 				}
 			});

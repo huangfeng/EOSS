@@ -83,7 +83,6 @@ public class UserAction extends BaseAction {
         user.setId(id);
         user.setSalt(new Random().nextInt(1000) + "");
         user.setPassword(Digest.GetMD5(user.getPassword() + user.getSalt()));
-        user.setSalt(new Random().nextInt(1000) + "");
         user.setCreateDatetime(DateUtil.GetCurrentDateTime(true));
         this.baseService.myInsert(User.Insert, user);
 
