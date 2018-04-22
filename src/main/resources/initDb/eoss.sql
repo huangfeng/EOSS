@@ -1,9 +1,8 @@
 /*
 SQLyog 企业版 - MySQL GUI v8.14 
-MySQL - 5.6.24 : Database - eoss
+MySQL - 5.7.15 : Database - eoss
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -64,7 +63,7 @@ CREATE TABLE `permission` (
 
 /*Data for the table `permission` */
 
-insert  into `permission`(`ID`,`NAME`) values (1,'permission:add'),(2,'permission:list'),(3,'permission:delete'),(4,'permission:*');
+insert  into `permission`(`ID`,`NAME`) values (1,'add'),(2,'update'),(3,'delete'),(4,'list'),(5,'query'),(6,'select'),(7,'find');
 
 /*Table structure for table `role` */
 
@@ -79,7 +78,7 @@ CREATE TABLE `role` (
 
 /*Data for the table `role` */
 
-insert  into `role`(`ID`,`NAME`,`CREATE_DATETIME`) values (1,'系统管理员','2012-12-22 16:27:04'),(2,'业务员','2016-10-26 19:01:45');
+insert  into `role`(`ID`,`NAME`,`CREATE_DATETIME`) values (1,'系统管理员','2012-12-22 16:27:04'),(2,'系统查看员','2016-10-26 19:01:45');
 
 /*Table structure for table `role_permission` */
 
@@ -91,6 +90,8 @@ CREATE TABLE `role_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `role_permission` */
+
+insert  into `role_permission`(`PERMISSION_ID`,`ROLE_ID`) values (4,2),(5,2),(6,2),(7,2),(1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1);
 
 /*Table structure for table `user` */
 
@@ -107,7 +108,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-INSERT  INTO `user`(`ID`,`username`,`password`,`salt`,`CREATE_DATETIME`) VALUES (1,'admin','89d230a8172063206a6ed0f92570deab','abc','2012-12-22 19:25:48');
+insert  into `user`(`ID`,`username`,`password`,`salt`,`CREATE_DATETIME`) values (1,'admin','89d230a8172063206a6ed0f92570deab','abc','2012-12-22 19:25:48'),(2,'admin2','11ea1c5dce9cff05b068091972ed396b','71','2018-04-22 19:31:31');
 
 /*Table structure for table `user_menu` */
 
@@ -133,7 +134,7 @@ CREATE TABLE `user_role` (
 
 /*Data for the table `user_role` */
 
-insert  into `user_role`(`USER_ID`,`ROLE_ID`) values (1,1),(1,2);
+insert  into `user_role`(`USER_ID`,`ROLE_ID`) values (1,1),(1,2),(2,2);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
