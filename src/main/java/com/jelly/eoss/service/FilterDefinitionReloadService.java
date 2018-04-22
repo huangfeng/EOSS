@@ -2,18 +2,14 @@ package com.jelly.eoss.service;
 
 import com.jelly.eoss.dao.BaseService;
 import com.jelly.eoss.filter.SecurityFilter;
-import com.jelly.eoss.model.FilterDefinition;
+import com.jelly.eoss.model.AdminFilterDefinition;
 import com.jelly.eoss.security.FilterCore;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @Service
 public class FilterDefinitionReloadService {
@@ -23,7 +19,7 @@ public class FilterDefinitionReloadService {
     private BaseService baseService;
 
     public FilterCore reload(){
-        FilterDefinition filterDefinition = this.baseService.mySelectOne(FilterDefinition.SelectByPk, 1);
+        AdminFilterDefinition filterDefinition = this.baseService.mySelectOne(AdminFilterDefinition.SelectByPk, 1);
         if(filterDefinition == null){
             throw new RuntimeException("表filter_definition中没有id=1的记录");
         }

@@ -1,7 +1,7 @@
 package com.jelly.eoss.web;
 
 import com.jelly.eoss.dao.BaseService;
-import com.jelly.eoss.model.User;
+import com.jelly.eoss.model.AdminUser;
 import com.jelly.eoss.service.MenuService;
 import com.jelly.eoss.util.*;
 import com.jelly.eoss.util.security.Digest;
@@ -59,12 +59,12 @@ public class UserAction extends BaseAction {
     }
 
     @RequestMapping(value = "/toAdd")
-    public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response, User user) throws Exception {
+    public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response, AdminUser user) throws Exception {
         return new ModelAndView("/system/userAdd.jsp");
     }
 
     @RequestMapping(value = "/add")
-    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, User user) throws Exception {
+    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, AdminUser user) throws Exception {
         String roleIds = request.getParameter("roleIds");
         String resourcesIds = request.getParameter("resourcesIds");
         ModelAndView mv = new ModelAndView();
@@ -84,7 +84,7 @@ public class UserAction extends BaseAction {
         user.setSalt(new Random().nextInt(1000) + "");
         user.setPassword(Digest.GetMD5(user.getPassword() + user.getSalt()));
         user.setCreateDatetime(DateUtil.GetCurrentDateTime(true));
-        this.baseService.myInsert(User.Insert, user);
+        this.baseService.myInsert(AdminUser.Insert, user);
 
         //插入角色
         this.batchInsertUserRole(user.getId(), roleIds);
@@ -99,7 +99,7 @@ public class UserAction extends BaseAction {
         String id = request.getParameter("id");
 
         //查询自己
-        User user = this.baseService.mySelectOne(User.SelectByPk, id);
+        AdminUser user = this.baseService.mySelectOne(AdminUser.SelectByPk, id);
 
         //查询该用户已拥有的角色
         String sql = "select * from user_role where user_id = ?";
@@ -147,13 +147,13 @@ public class UserAction extends BaseAction {
     }
 
     @RequestMapping(value = "/update")
-    public ModelAndView update(HttpServletRequest request, HttpServletResponse response, User user) throws Exception {
+    public ModelAndView update(HttpServletRequest request, HttpServletResponse response, AdminUser user) throws Exception {
         //更新用户信息
-        User u = this.baseService.mySelectOne(User.SelectByPk, user.getId());
+        AdminUser u = this.baseService.mySelectOne(AdminUser.SelectByPk, user.getId());
         u.setUsername(user.getUsername());
         u.setSalt(new Random().nextInt(1000) + "");
         u.setPassword(Digest.GetMD5(user.getPassword() + u.getSalt()));
-        this.baseService.myUpdate(User.Update, u);
+        this.baseService.myUpdate(AdminUser.Update, u);
 
         //更新角色
         String roleIds = request.getParameter("roleIds");
@@ -227,7 +227,7 @@ public class UserAction extends BaseAction {
         String id = request.getParameter("id");
 
         //删除自己
-        this.baseService.myDelete(User.DeleteByPk, id);
+        this.baseService.myDelete(AdminUser.DeleteByPk, id);
 
         //删除对应的角色
         this.baseService.jdDelete("delete from user_role where user_id = ?", id);

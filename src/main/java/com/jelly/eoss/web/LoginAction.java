@@ -1,8 +1,8 @@
 package com.jelly.eoss.web;
 
 import com.jelly.eoss.dao.BaseService;
-import com.jelly.eoss.model.User;
-import com.jelly.eoss.model.UserRolesPerms;
+import com.jelly.eoss.model.AdminUser;
+import com.jelly.eoss.model.AdminUserRolesPerms;
 import com.jelly.eoss.service.MenuService;
 import com.jelly.eoss.servlet.ICodeServlet;
 import com.jelly.eoss.util.Const;
@@ -57,7 +57,7 @@ public class LoginAction extends BaseAction {
 				return;
 			}
 
-			User user = this.baseService.mySelectOne(User.Select, new User().setUsername(username));
+			AdminUser user = this.baseService.mySelectOne(AdminUser.Select, new AdminUser().setUsername(username));
             if(user == null){
                 this.responseSimpleJson(response, false, "该用户不存在");
                 return;
@@ -73,7 +73,7 @@ public class LoginAction extends BaseAction {
 			String menuTreeIdsOfUser = this.menuService.queryMenuTreeIdsOfUser(user);
 
 			//登录成功
-            UserRolesPerms userRolesPerms = new UserRolesPerms();
+            AdminUserRolesPerms userRolesPerms = new AdminUserRolesPerms();
             List<String> roleList = this.baseService.mySelectList("_EXT.Role_QueryByUserId", user.getId());
             List<String> permList = this.baseService.mySelectList("_EXT.Permission_QueryByUserId", user.getId());
 

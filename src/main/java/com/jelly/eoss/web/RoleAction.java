@@ -1,8 +1,8 @@
 package com.jelly.eoss.web;
 
 import com.jelly.eoss.dao.BaseService;
-import com.jelly.eoss.model.Permission;
-import com.jelly.eoss.model.Role;
+import com.jelly.eoss.model.AdminPermission;
+import com.jelly.eoss.model.AdminRole;
 import com.jelly.eoss.service.MenuService;
 import com.jelly.eoss.util.*;
 import org.apache.ibatis.session.RowBounds;
@@ -63,20 +63,20 @@ public class RoleAction extends BaseAction{
 
 	@RequestMapping(value = "/toAdd")
 	public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		List<Permission> permissionList = this.baseService.mySelectList(Permission.Select);
+		List<AdminPermission> permissionList = this.baseService.mySelectList(AdminPermission.Select);
 		request.setAttribute("permissionList", permissionList);
 		return new ModelAndView("/system/roleAdd.jsp");
 	}
 
 	@RequestMapping(value = "/add")
-	public ModelAndView add(HttpServletRequest request, HttpServletResponse response, Role role) throws Exception{
+	public ModelAndView add(HttpServletRequest request, HttpServletResponse response, AdminRole role) throws Exception{
 		int id = ComUtil.QueryNextID("id", "role");
 		String permissionIdsStr = request.getParameter("permissionIds");
 		
 		//插入角色
 		role.setId(id);
 		role.setCreateDatetime(DateUtil.GetCurrentDateTime(true));
-		baseService.myInsert(Role.Insert, role);
+		baseService.myInsert(AdminRole.Insert, role);
 		
 		//插入角色对应的权限
 		this.batchInsertRolePermission(role.getId(), permissionIdsStr);
@@ -98,7 +98,7 @@ public class RoleAction extends BaseAction{
 	public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String id = request.getParameter("id");
 
-		Role role = this.baseService.mySelectOne(Role.SelectByPk, id);
+		AdminRole role = this.baseService.mySelectOne(AdminRole.SelectByPk, id);
         List<Map<String, Object>> permissionList = this.baseService.mySelectList("_EXT.Role_QueryAllPermissionWithRole", role.getId());
 
 		request.setAttribute("role", role);
@@ -107,13 +107,13 @@ public class RoleAction extends BaseAction{
 	}
 	
 	@RequestMapping(value = "/update")
-	public ModelAndView update(HttpServletRequest request, HttpServletResponse response, Role role) throws Exception{
+	public ModelAndView update(HttpServletRequest request, HttpServletResponse response, AdminRole role) throws Exception{
 		String permissionIdsStr = request.getParameter("permissionIds");
 		
 		//更新角色
-		Role r = this.baseService.mySelectOne(Role.SelectByPk, role.getId());
+		AdminRole r = this.baseService.mySelectOne(AdminRole.SelectByPk, role.getId());
 		r.setName(role.getName());
-		this.baseService.myUpdate(Role.Update, r);
+		this.baseService.myUpdate(AdminRole.Update, r);
 		
 		//更新角色原有权限
 		this.batchInsertRolePermission(role.getId(), permissionIdsStr);

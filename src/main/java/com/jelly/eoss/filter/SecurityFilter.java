@@ -1,6 +1,6 @@
 package com.jelly.eoss.filter;
 
-import com.jelly.eoss.model.UserRolesPerms;
+import com.jelly.eoss.model.AdminUserRolesPerms;
 import com.jelly.eoss.security.FilterCore;
 import com.jelly.eoss.service.FilterDefinitionReloadService;
 import com.jelly.eoss.util.Const;
@@ -37,7 +37,7 @@ public class SecurityFilter implements Filter {
         String path = StringUtils.substringAfter(uri, contextPath);
         log.debug("contextPath={}, uri={}, path={}", contextPath, uri, path);
 
-        UserRolesPerms userRolesPerms = (UserRolesPerms) request.getSession().getAttribute(Const.LOGIN_SESSION_KEY);
+        AdminUserRolesPerms userRolesPerms = (AdminUserRolesPerms) request.getSession().getAttribute(Const.LOGIN_SESSION_KEY);
         Set<String> roleSet = null;
         Set<String> permSet = null;
 

@@ -1,7 +1,7 @@
 package com.jelly.eoss.web;
 
 import com.jelly.eoss.dao.BaseService;
-import com.jelly.eoss.model.FilterDefinition;
+import com.jelly.eoss.model.AdminFilterDefinition;
 import com.jelly.eoss.service.FilterDefinitionReloadService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,16 @@ public class FilterDefinitionAction extends BaseAction{
 
 	@RequestMapping(value = "/toUpdate")
 	public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		FilterDefinition filterDefinition = this.baseService.mySelectOne(FilterDefinition.SelectByPk, 1);
+		AdminFilterDefinition filterDefinition = this.baseService.mySelectOne(AdminFilterDefinition.SelectByPk, 1);
 		request.setAttribute("filterDefinition", filterDefinition);
 		return new ModelAndView("/system/filterDefinition.jsp");
 	}
 	
 	@RequestMapping(value = "/update")
-	public ModelAndView update(HttpServletRequest request, HttpServletResponse response, FilterDefinition filterDefinition) throws Exception{
+	public ModelAndView update(HttpServletRequest request, HttpServletResponse response, AdminFilterDefinition filterDefinition) throws Exception{
 		filterDefinition.setRule(StringUtils.trimToNull(filterDefinition.getRule()));
 
-		this.baseService.myUpdate(FilterDefinition.UpdateWithNull, filterDefinition);
+		this.baseService.myUpdate(AdminFilterDefinition.UpdateWithNull, filterDefinition);
         filterDefinitionReloadService.reload();
         request.getRequestDispatcher("/system/filterDefinition/toUpdate").forward(request, response);
 
