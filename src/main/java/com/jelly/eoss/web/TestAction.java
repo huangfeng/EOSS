@@ -1,6 +1,6 @@
 package com.jelly.eoss.web;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.service.MenuService;
 import com.jelly.eoss.util.security.Digest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/test")
 public class TestAction extends BaseAction{
 	@Autowired
-	private BaseService baseDao;
+	private BaseDao baseDao;
 	@Autowired
 	private MenuService menuService;
 	
@@ -32,11 +32,11 @@ public class TestAction extends BaseAction{
 		this.menuService = menuService;
 	}
 
-	public BaseService getBaseDao() {
+	public BaseDao getBaseDao() {
 		return baseDao;
 	}
 
-	public void setBaseDao(BaseService baseDao) {
+	public void setBaseDao(BaseDao baseDao) {
 		this.baseDao = baseDao;
 	}
 

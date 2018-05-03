@@ -1,6 +1,6 @@
 package com.jelly.eoss.web;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminUser;
 import com.jelly.eoss.service.MenuService;
 import com.jelly.eoss.util.*;
@@ -20,7 +20,7 @@ import java.util.*;
 @RequestMapping(value = "/system/user")
 public class UserAction extends BaseAction {
     @Autowired
-    private BaseService baseService;
+    private BaseDao baseDao;
     @Autowired
     private MenuService menuService;
 
@@ -28,7 +28,7 @@ public class UserAction extends BaseAction {
     public void queryUserNameAjax(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String name = request.getParameter("name");
-            int total = this.baseService.jdQueryForInt("select count(*) total from user where name = ?", name);
+            int total = this.baseDao.jdQueryForInt("select count(*) total from user where name = ?", name);
             if (total == 0) {
                 response.getWriter().write("y");
             } else {
@@ -47,8 +47,8 @@ public class UserAction extends BaseAction {
         Map<String, String> param = this.getRequestMap(request);
         RowBounds rb = new RowBounds((page - 1) * Const.PAGE_SIZE, Const.PAGE_SIZE);
 
-        Integer totalRow = this.baseService.mySelectOne("_EXT.User_QueryUser_Count", param);
-        List<Map<String, Object>> dataList = this.baseService.getSqlSessionTemplate().selectList("_EXT.User_QueryUser_Page", param, rb);
+        Integer totalRow = this.baseDao.mySelectOne("_EXT.User_QueryUser_Count", param);
+        List<Map<String, Object>> dataList = this.baseDao.getSqlSessionTemplate().selectList("_EXT.User_QueryUser_Page", param, rb);
 
         Pager pager = new Pager(page.intValue(), Const.PAGE_SIZE, totalRow.intValue());
         pager.setData(dataList);
@@ -70,7 +70,7 @@ public class UserAction extends BaseAction {
         ModelAndView mv = new ModelAndView();
 
         //查询用户名是否存在
-        int total = this.baseService.jdQueryForInt("select count(*) total from user where username = ?", user.getUsername());
+        int total = this.baseDao.jdQueryForInt("select count(*) total from user where username = ?", user.getUsername());
         if (total != 0) {
             request.setAttribute("INFO", "该用户名已存在，请选择一个新的用户名");
             mv.setViewName("/info.jsp");
@@ -84,7 +84,7 @@ public class UserAction extends BaseAction {
         user.setSalt(new Random().nextInt(1000) + "");
         user.setPassword(Digest.GetMD5(user.getPassword() + user.getSalt()));
         user.setCreateDatetime(DateUtil.GetCurrentDateTime(true));
-        this.baseService.myInsert(AdminUser.Insert, user);
+        this.baseDao.myInsert(AdminUser.Insert, user);
 
         //插入角色
         this.batchInsertUserRole(user.getId(), roleIds);
@@ -99,18 +99,18 @@ public class UserAction extends BaseAction {
         String id = request.getParameter("id");
 
         //查询自己
-        AdminUser user = this.baseService.mySelectOne(AdminUser.SelectByPk, id);
+        AdminUser user = this.baseDao.mySelectOne(AdminUser.SelectByPk, id);
 
         //查询该用户已拥有的角色
         String sql = "select * from user_role where user_id = ?";
-        List<Map<String, Object>> roleOldList = this.baseService.jdQueryForList(sql, id);
+        List<Map<String, Object>> roleOldList = this.baseDao.jdQueryForList(sql, id);
         Set<String> roleOldSet = new HashSet<String>();
         for (Map<String, Object> m : roleOldList) {
             roleOldSet.add(m.get("role_id").toString());
         }
 
         //设置初始化选中的角色
-        List<Map<String, Object>> roleList = this.baseService.mySelectList("_EXT.Role_QueryRolePage");
+        List<Map<String, Object>> roleList = this.baseDao.mySelectList("_EXT.Role_QueryRolePage");
         for (Map<String, Object> m : roleList) {
             m.put("pId", "-1");
             m.put("isParent", "false");
@@ -123,7 +123,7 @@ public class UserAction extends BaseAction {
 
         //将该角色已有菜单资源用逗号连接成一个字符串，如1,2,3,4,5,6
         String sqlMenu = "select menu_id as id from user_menu where user_id = ?";
-        List<Map<String, Object>> resourceIdsOldList = this.baseService.jdQueryForList(sqlMenu, id);
+        List<Map<String, Object>> resourceIdsOldList = this.baseDao.jdQueryForList(sqlMenu, id);
         StringBuilder sb = new StringBuilder();
         for (Map<String, Object> m : resourceIdsOldList) {
             sb.append(m.get("id").toString() + ",");
@@ -149,11 +149,11 @@ public class UserAction extends BaseAction {
     @RequestMapping(value = "/update")
     public ModelAndView update(HttpServletRequest request, HttpServletResponse response, AdminUser user) throws Exception {
         //更新用户信息
-        AdminUser u = this.baseService.mySelectOne(AdminUser.SelectByPk, user.getId());
+        AdminUser u = this.baseDao.mySelectOne(AdminUser.SelectByPk, user.getId());
         u.setUsername(user.getUsername());
         u.setSalt(new Random().nextInt(1000) + "");
         u.setPassword(Digest.GetMD5(user.getPassword() + u.getSalt()));
-        this.baseService.myUpdate(AdminUser.Update, u);
+        this.baseDao.myUpdate(AdminUser.Update, u);
 
         //更新角色
         String roleIds = request.getParameter("roleIds");
@@ -173,7 +173,7 @@ public class UserAction extends BaseAction {
     //批量插入用户对应的角色，只选择用JdbcTemplate的批量更新方法，以保证高性能
     private void batchInsertUserRole(Integer userId, String roleIdsStr) {
         String sqlDelete = "delete from user_role where user_id = ?";
-        this.baseService.jdDelete(sqlDelete, userId);
+        this.baseDao.jdDelete(sqlDelete, userId);
 
         //没有选择角色，直接返回
         if (roleIdsStr == null || roleIdsStr.trim().equals("")) {
@@ -192,14 +192,14 @@ public class UserAction extends BaseAction {
                 objs[1] = permissionId;
                 batchParams.add(objs);
             }
-            this.baseService.jdBatchUpdate(sqlInsert, batchParams);
+            this.baseDao.jdBatchUpdate(sqlInsert, batchParams);
         }
     }
 
     //批量插入用户对应的资源，只选择用JdbcTemplate的批量更新方法，以保证高性能
     private void batchInsertUserResource(int userId, String resourceIdsStr) {
         String sqlDelete = "delete from user_menu where user_id = ?";
-        this.baseService.jdDelete(sqlDelete, userId);
+        this.baseDao.jdDelete(sqlDelete, userId);
 
         //没有选择资源，直接返回
         if (resourceIdsStr == null || resourceIdsStr.trim().equals("")) {
@@ -218,7 +218,7 @@ public class UserAction extends BaseAction {
                 objs[1] = resourceId;
                 batchParams.add(objs);
             }
-            this.baseService.jdBatchUpdate(sqlInsert, batchParams);
+            this.baseDao.jdBatchUpdate(sqlInsert, batchParams);
         }
     }
 
@@ -227,24 +227,24 @@ public class UserAction extends BaseAction {
         String id = request.getParameter("id");
 
         //删除自己
-        this.baseService.myDelete(AdminUser.DeleteByPk, id);
+        this.baseDao.myDelete(AdminUser.DeleteByPk, id);
 
         //删除对应的角色
-        this.baseService.jdDelete("delete from user_role where user_id = ?", id);
+        this.baseDao.jdDelete("delete from user_role where user_id = ?", id);
 
         //删除对应的资源
-        this.baseService.jdDelete("delete from user_menu where user_id = ?", id);
+        this.baseDao.jdDelete("delete from user_menu where user_id = ?", id);
 
         response.getWriter().write("y");
     }
 
     //getter and setter
-    public BaseService getBaseDao() {
-        return baseService;
+    public BaseDao getBaseDao() {
+        return baseDao;
     }
 
-    public void setBaseDao(BaseService baseDao) {
-        this.baseService = baseDao;
+    public void setBaseDao(BaseDao baseDao) {
+        this.baseDao = baseDao;
     }
 
 }

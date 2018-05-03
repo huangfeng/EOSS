@@ -1,6 +1,6 @@
 package com.jelly.eoss.web;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/business/money")
 public class BusinessAction extends BaseAction {
 	@Autowired
-	private BaseService baseService;
+	private BaseDao baseDao;
 
     @RequestMapping(value = "/list")
     public void center(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -31,11 +31,11 @@ public class BusinessAction extends BaseAction {
 	
 	//getter and setter
 
-	public BaseService getBaseDao() {
-		return baseService;
+	public BaseDao getBaseDao() {
+		return baseDao;
 	}
 
-	public void setBaseDao(BaseService baseDao) {
-		this.baseService = baseDao;
+	public void setBaseDao(BaseDao baseDao) {
+		this.baseDao = baseDao;
 	}
 }

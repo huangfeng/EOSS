@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class BaseService {
+public class BaseDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public BaseService(){
+	public BaseDao(){
 		
 	}
 	

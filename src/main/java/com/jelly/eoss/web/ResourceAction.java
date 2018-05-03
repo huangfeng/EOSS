@@ -1,6 +1,6 @@
 package com.jelly.eoss.web;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminMenu;
 import com.jelly.eoss.service.MenuService;
 import com.jelly.eoss.util.ComUtil;
@@ -30,7 +30,7 @@ public class ResourceAction extends BaseAction{
 	private static final Logger log = LoggerFactory.getLogger(ResourceAction.class);
 
 	@Autowired
-	private BaseService baseService;
+	private BaseDao baseDao;
 	@Autowired
 	private MenuService menuService;
 	
@@ -42,8 +42,8 @@ public class ResourceAction extends BaseAction{
 		param.put("leaf", "1");
 		RowBounds rb = new RowBounds((page -1) * Const.PAGE_SIZE, Const.PAGE_SIZE);
 		
-		Integer totalRow = this.baseService.mySelectOne("_EXT.Menu_QueryMenuPage_Count", param);
-		List<Map<String, Object>> dataList = this.baseService.getSqlSessionTemplate().selectList("_EXT.Menu_QueryMenuPage", param, rb);
+		Integer totalRow = this.baseDao.mySelectOne("_EXT.Menu_QueryMenuPage_Count", param);
+		List<Map<String, Object>> dataList = this.baseDao.getSqlSessionTemplate().selectList("_EXT.Menu_QueryMenuPage", param, rb);
 		
 		Pager pager = new Pager(page.intValue(), Const.PAGE_SIZE, totalRow.intValue());
 		pager.setData(dataList);
@@ -66,7 +66,7 @@ public class ResourceAction extends BaseAction{
 		menu.setLeaf(1);
 		menu.setPath(menu.getPath() + "#" + id);
 		menu.setCreateDatetime(DateUtil.GetCurrentDateTime(true));
-		this.baseService.myInsert(AdminMenu.Insert, menu);
+		this.baseDao.myInsert(AdminMenu.Insert, menu);
 		log.debug(menu.getTarget());
 		return new ModelAndView("/system/resource/toList");
 	}
@@ -75,14 +75,14 @@ public class ResourceAction extends BaseAction{
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String id = request.getParameter("id");
 //		Log.Debug("id:" + id);
-		this.baseService.myDelete(AdminMenu.DeleteByPk, id);
+		this.baseDao.myDelete(AdminMenu.DeleteByPk, id);
 		response.getWriter().write("y");
 	}
 	
 	@RequestMapping(value = "/toUpdate")
 	public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String id = request.getParameter("id");
-		AdminMenu menu = this.baseService.mySelectOne(AdminMenu.SelectByPk, id);
+		AdminMenu menu = this.baseDao.mySelectOne(AdminMenu.SelectByPk, id);
 		
 		//装饰zTreeNode
 		Map<String, String> pm = new HashMap<String, String>();
@@ -99,24 +99,24 @@ public class ResourceAction extends BaseAction{
 	
 	@RequestMapping(value = "/update")
 	public ModelAndView update(HttpServletRequest request, HttpServletResponse response, AdminMenu menu) throws ServletException, IOException{
-		AdminMenu m = this.baseService.mySelectOne(AdminMenu.SelectByPk, menu.getId());
+		AdminMenu m = this.baseDao.mySelectOne(AdminMenu.SelectByPk, menu.getId());
 		m.setName(menu.getName());
 		m.setTarget(menu.getTarget());
 		m.setLev(menu.getLev());
 		m.setPath(menu.getPath());
 		m.setUrl(menu.getUrl());
 		m.setPid(menu.getPid());
-		this.baseService.myUpdate(AdminMenu.Update, m);
+		this.baseDao.myUpdate(AdminMenu.Update, m);
 		return new ModelAndView("/system/resource/toList");
 	}
 	
 	//getter and setter
-	public BaseService getBaseDao() {
-		return baseService;
+	public BaseDao getBaseDao() {
+		return baseDao;
 	}
 
-	public void setBaseDao(BaseService baseDao) {
-		this.baseService = baseDao;
+	public void setBaseDao(BaseDao baseDao) {
+		this.baseDao = baseDao;
 	}
 
 	public MenuService getMenuService() {

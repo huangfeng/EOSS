@@ -1,6 +1,6 @@
 package com.jelly.eoss.web;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminPermission;
 import com.jelly.eoss.util.ComUtil;
 import com.jelly.eoss.util.Const;
@@ -23,7 +23,7 @@ import java.util.Map;
 @RequestMapping(value = "/system/permission")
 public class PermissionAction extends BaseAction{
 	@Autowired
-	private BaseService baseService;
+	private BaseDao baseDao;
 
 	@RequestMapping(value = "/toList")
 	public ModelAndView toList(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -32,8 +32,8 @@ public class PermissionAction extends BaseAction{
 		Map<String, String> param = this.getRequestMap(request);
 		RowBounds rb = new RowBounds((page -1) * Const.PAGE_SIZE, Const.PAGE_SIZE);
 		
-		Integer totalRow = this.baseService.mySelectOne("_EXT.Permission_QueryPermissionPage_Count", param);
-		List<Map<String, Object>> dataList = this.baseService.getSqlSessionTemplate().selectList("_EXT.Permission_QueryPermissionPage", param, rb);
+		Integer totalRow = this.baseDao.mySelectOne("_EXT.Permission_QueryPermissionPage_Count", param);
+		List<Map<String, Object>> dataList = this.baseDao.getSqlSessionTemplate().selectList("_EXT.Permission_QueryPermissionPage", param, rb);
 		
 		Pager pager = new Pager(page.intValue(), Const.PAGE_SIZE, totalRow.intValue());
 		pager.setData(dataList);
@@ -52,7 +52,7 @@ public class PermissionAction extends BaseAction{
 	public ModelAndView add(HttpServletRequest request, HttpServletResponse response, AdminPermission permission) throws Exception{
 		int id = ComUtil.QueryNextID("id", "permission");
 		permission.setId(id);
-		this.baseService.myInsert(AdminPermission.Insert, permission);
+		this.baseDao.myInsert(AdminPermission.Insert, permission);
 		request.getRequestDispatcher("/system/permission/toList").forward(request, response);
 		return null;
 	}
@@ -61,7 +61,7 @@ public class PermissionAction extends BaseAction{
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String id = request.getParameter("id");
 //		Log.Debug("id:" + id);
-		this.baseService.myDelete(AdminPermission.DeleteByPk, id);
+		this.baseDao.myDelete(AdminPermission.DeleteByPk, id);
 		response.getWriter().write("y");
 	}
 	
@@ -69,7 +69,7 @@ public class PermissionAction extends BaseAction{
 	public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String id = request.getParameter("id");
 
-		AdminPermission permission = this.baseService.mySelectOne(AdminPermission.SelectByPk, id);
+		AdminPermission permission = this.baseDao.mySelectOne(AdminPermission.SelectByPk, id);
 
 		request.setAttribute("permission", permission);
 		return new ModelAndView("/system/permissionUpdate.jsp");
@@ -77,7 +77,7 @@ public class PermissionAction extends BaseAction{
 	
 	@RequestMapping(value = "/update")
 	public ModelAndView update(HttpServletRequest request, HttpServletResponse response, AdminPermission permission) throws ServletException, IOException{
-		this.baseService.myUpdate(AdminPermission.Update, permission);
+		this.baseDao.myUpdate(AdminPermission.Update, permission);
 
 		request.setAttribute("permission", permission);
         request.getRequestDispatcher("/system/permission/toList").forward(request, response);
@@ -85,7 +85,7 @@ public class PermissionAction extends BaseAction{
 	}
 	
 	//getter and setter
-	public BaseService getBaseDao() {
-		return baseService;
+	public BaseDao getBaseDao() {
+		return baseDao;
 	}
 }

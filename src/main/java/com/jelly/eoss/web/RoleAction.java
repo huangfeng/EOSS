@@ -1,6 +1,6 @@
 package com.jelly.eoss.web;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminPermission;
 import com.jelly.eoss.model.AdminRole;
 import com.jelly.eoss.service.MenuService;
@@ -26,13 +26,13 @@ public class RoleAction extends BaseAction{
 	private static final Logger log = LoggerFactory.getLogger(RoleAction.class);
 
 	@Autowired
-	private BaseService baseService;
+	private BaseDao baseDao;
 	@Autowired
 	private MenuService menuService;
 	
 	@RequestMapping(value = "/queryAllAjax")
 	public void queryAllAjax(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<Map<String, Object>> roleList = this.baseService.mySelectList("_EXT.Role_QueryRolePage");
+		List<Map<String, Object>> roleList = this.baseDao.mySelectList("_EXT.Role_QueryRolePage");
 		for(Map<String, Object> m : roleList){
 			m.put("pId", "-1");
 			m.put("isParent", "false");
@@ -50,8 +50,8 @@ public class RoleAction extends BaseAction{
 		Map<String, String> param = this.getRequestMap(request);
 		RowBounds rb = new RowBounds((page -1) * Const.PAGE_SIZE, Const.PAGE_SIZE);
 		
-		Integer totalRow = this.baseService.mySelectOne("_EXT.Role_QueryRolePage_Count", param);
-		List<Map<String, Object>> dataList = this.baseService.getSqlSessionTemplate().selectList("_EXT.Role_QueryRolePage", param, rb);
+		Integer totalRow = this.baseDao.mySelectOne("_EXT.Role_QueryRolePage_Count", param);
+		List<Map<String, Object>> dataList = this.baseDao.getSqlSessionTemplate().selectList("_EXT.Role_QueryRolePage", param, rb);
 		
 		Pager pager = new Pager(page.intValue(), Const.PAGE_SIZE, totalRow.intValue());
 		pager.setData(dataList);
@@ -63,7 +63,7 @@ public class RoleAction extends BaseAction{
 
 	@RequestMapping(value = "/toAdd")
 	public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		List<AdminPermission> permissionList = this.baseService.mySelectList(AdminPermission.Select);
+		List<AdminPermission> permissionList = this.baseDao.mySelectList(AdminPermission.Select);
 		request.setAttribute("permissionList", permissionList);
 		return new ModelAndView("/system/roleAdd.jsp");
 	}
@@ -76,7 +76,7 @@ public class RoleAction extends BaseAction{
 		//插入角色
 		role.setId(id);
 		role.setCreateDatetime(DateUtil.GetCurrentDateTime(true));
-		baseService.myInsert(AdminRole.Insert, role);
+		baseDao.myInsert(AdminRole.Insert, role);
 		
 		//插入角色对应的权限
 		this.batchInsertRolePermission(role.getId(), permissionIdsStr);
@@ -88,9 +88,9 @@ public class RoleAction extends BaseAction{
 	@RequestMapping(value = "/delete")
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
-		this.baseService.jdDelete("delete from role where id = ?", id);
-		this.baseService.jdDelete("delete from role_permission where role_id = ?", id);
-		this.baseService.jdDelete("delete from user_role where role_id = ?", id);
+		this.baseDao.jdDelete("delete from role where id = ?", id);
+		this.baseDao.jdDelete("delete from role_permission where role_id = ?", id);
+		this.baseDao.jdDelete("delete from user_role where role_id = ?", id);
 		response.getWriter().write("y");
 	}
 	
@@ -98,8 +98,8 @@ public class RoleAction extends BaseAction{
 	public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String id = request.getParameter("id");
 
-		AdminRole role = this.baseService.mySelectOne(AdminRole.SelectByPk, id);
-        List<Map<String, Object>> permissionList = this.baseService.mySelectList("_EXT.Role_QueryAllPermissionWithRole", role.getId());
+		AdminRole role = this.baseDao.mySelectOne(AdminRole.SelectByPk, id);
+        List<Map<String, Object>> permissionList = this.baseDao.mySelectList("_EXT.Role_QueryAllPermissionWithRole", role.getId());
 
 		request.setAttribute("role", role);
         request.setAttribute("permissionList", permissionList);
@@ -111,9 +111,9 @@ public class RoleAction extends BaseAction{
 		String permissionIdsStr = request.getParameter("permissionIds");
 		
 		//更新角色
-		AdminRole r = this.baseService.mySelectOne(AdminRole.SelectByPk, role.getId());
+		AdminRole r = this.baseDao.mySelectOne(AdminRole.SelectByPk, role.getId());
 		r.setName(role.getName());
-		this.baseService.myUpdate(AdminRole.Update, r);
+		this.baseDao.myUpdate(AdminRole.Update, r);
 		
 		//更新角色原有权限
 		this.batchInsertRolePermission(role.getId(), permissionIdsStr);
@@ -124,7 +124,7 @@ public class RoleAction extends BaseAction{
 	//批量插入角色对应的权限，只选择用JdbcTemplate的批量更新方法，以保证高性能
 	private void batchInsertRolePermission(int roleId, String permissionIdsStr){
 		String sqlDelete = "delete from role_permission where role_id = ?";
-		this.baseService.jdDelete(sqlDelete, roleId);
+		this.baseDao.jdDelete(sqlDelete, roleId);
 		
 		//没有选择权限，直接返回
 		if(permissionIdsStr == null || permissionIdsStr.trim().equals("")){
@@ -143,17 +143,17 @@ public class RoleAction extends BaseAction{
 				objs[1] = permissionId;
 				batchParams.add(objs);
 			}
-			this.baseService.jdBatchUpdate(sqlInsert, batchParams);
+			this.baseDao.jdBatchUpdate(sqlInsert, batchParams);
 		}
 	}
 	
 	//getter and setter
-	public BaseService getBaseDao() {
-		return baseService;
+	public BaseDao getBaseDao() {
+		return baseDao;
 	}
 
-	public void setBaseDao(BaseService baseDao) {
-		this.baseService = baseDao;
+	public void setBaseDao(BaseDao baseDao) {
+		this.baseDao = baseDao;
 	}
 	
 	public MenuService getMenuService() {

@@ -1,6 +1,6 @@
 package com.jelly.eoss.web;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminMenu;
 import com.jelly.eoss.service.MenuService;
 import com.jelly.eoss.util.ComUtil;
@@ -30,7 +30,7 @@ public class MenuAction extends BaseAction{
     private static final Logger log = LoggerFactory.getLogger(MenuAction.class);
 
 	@Autowired
-	private BaseService baseService;
+	private BaseDao baseDao;
 	@Autowired
 	private MenuService menuService;
 	
@@ -95,8 +95,8 @@ public class MenuAction extends BaseAction{
 		param.put("leaf", "0");
 		RowBounds rb = new RowBounds((page -1) * Const.PAGE_SIZE, Const.PAGE_SIZE);
 		
-		Integer totalRow = this.baseService.mySelectOne("_EXT.Menu_QueryMenuPage_Count", param);
-		List<Map<String, Object>> dataList = this.baseService.getSqlSessionTemplate().selectList("_EXT.Menu_QueryMenuPage", param, rb);
+		Integer totalRow = this.baseDao.mySelectOne("_EXT.Menu_QueryMenuPage_Count", param);
+		List<Map<String, Object>> dataList = this.baseDao.getSqlSessionTemplate().selectList("_EXT.Menu_QueryMenuPage", param, rb);
 		
 		Pager pager = new Pager(page.intValue(), Const.PAGE_SIZE, totalRow.intValue());
 		pager.setData(dataList);
@@ -118,7 +118,7 @@ public class MenuAction extends BaseAction{
 		menu.setLeaf(0);
 		menu.setPath(menu.getPath() + "#" + id);
 		menu.setCreateDatetime(DateUtil.GetCurrentDateTime(true));
-		this.baseService.myInsert(AdminMenu.Insert, menu);
+		this.baseDao.myInsert(AdminMenu.Insert, menu);
 
 		request.getRequestDispatcher("/system/menu/toList").forward(request, response);
 		
@@ -138,9 +138,9 @@ public class MenuAction extends BaseAction{
 //		Log.Debug("id:" + id);
 		//有子菜单，不能删除
 		String sql = "select count(*) total from menu where pid = ?";
-		int total = this.baseService.getJdbcTemplate().queryForObject(sql, Integer.class, id);
+		int total = this.baseDao.getJdbcTemplate().queryForObject(sql, Integer.class, id);
 		if(total == 0){
-			this.baseService.getSqlSessionTemplate().delete(AdminMenu.DeleteByPk, id);
+			this.baseDao.getSqlSessionTemplate().delete(AdminMenu.DeleteByPk, id);
 			response.getWriter().write("y");
 		}else{
 			response.getWriter().write("请先删除或移动，该菜单的所有子菜单和权限");
@@ -150,9 +150,9 @@ public class MenuAction extends BaseAction{
 	@RequestMapping(value = "/toUpdate")
 	public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String id = request.getParameter("id");
-		AdminMenu mu = this.baseService.getSqlSessionTemplate().selectOne(AdminMenu.SelectByPk, id);
+		AdminMenu mu = this.baseDao.getSqlSessionTemplate().selectOne(AdminMenu.SelectByPk, id);
 		
-		List<Map<String, Object>> subMenuList = this.baseService.mySelectList("_EXT.Menu_QueryAllSubMenu", mu.getId());
+		List<Map<String, Object>> subMenuList = this.baseDao.mySelectList("_EXT.Menu_QueryAllSubMenu", mu.getId());
 		//将所有id值拼接成1,2,3,4,5,6的形式
 		StringBuilder sb = new StringBuilder();
 		sb.append(id + ",");
@@ -186,7 +186,7 @@ public class MenuAction extends BaseAction{
 		}
 		
 		menu.setLeaf(0);
-		this.baseService.getSqlSessionTemplate().update(AdminMenu.Update, menu);
+		this.baseDao.getSqlSessionTemplate().update(AdminMenu.Update, menu);
 
         request.getRequestDispatcher("/system/menu/toList").forward(request, response);
 
@@ -202,11 +202,11 @@ public class MenuAction extends BaseAction{
 		this.menuService = menuService;
 	}
 
-	public BaseService getBaseDao() {
-		return baseService;
+	public BaseDao getBaseDao() {
+		return baseDao;
 	}
 
-	public void setBaseDao(BaseService baseDao) {
-		this.baseService = baseDao;
+	public void setBaseDao(BaseDao baseDao) {
+		this.baseDao = baseDao;
 	}
 }

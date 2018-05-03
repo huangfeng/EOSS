@@ -1,6 +1,6 @@
 package com.jelly.eoss.web;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminFilterDefinition;
 import com.jelly.eoss.service.FilterDefinitionReloadService;
 import org.apache.commons.lang3.StringUtils;
@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/system/filterDefinition")
 public class FilterDefinitionAction extends BaseAction{
 	@Autowired
-	private BaseService baseService;
+	private BaseDao baseDao;
 	@Autowired
 	FilterDefinitionReloadService filterDefinitionReloadService;
 
 	@RequestMapping(value = "/toUpdate")
 	public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		AdminFilterDefinition filterDefinition = this.baseService.mySelectOne(AdminFilterDefinition.SelectByPk, 1);
+		AdminFilterDefinition filterDefinition = this.baseDao.mySelectOne(AdminFilterDefinition.SelectByPk, 1);
 		request.setAttribute("filterDefinition", filterDefinition);
 		return new ModelAndView("/system/filterDefinition.jsp");
 	}
@@ -31,7 +31,7 @@ public class FilterDefinitionAction extends BaseAction{
 	public ModelAndView update(HttpServletRequest request, HttpServletResponse response, AdminFilterDefinition filterDefinition) throws Exception{
 		filterDefinition.setRule(StringUtils.trimToNull(filterDefinition.getRule()));
 
-		this.baseService.myUpdate(AdminFilterDefinition.UpdateWithNull, filterDefinition);
+		this.baseDao.myUpdate(AdminFilterDefinition.UpdateWithNull, filterDefinition);
         filterDefinitionReloadService.reload();
         request.getRequestDispatcher("/system/filterDefinition/toUpdate").forward(request, response);
 
@@ -39,11 +39,11 @@ public class FilterDefinitionAction extends BaseAction{
 	}
 	
 	//getter and setter
-	public BaseService getBaseDao() {
-		return baseService;
+	public BaseDao getBaseDao() {
+		return baseDao;
 	}
 
-	public void setBaseDao(BaseService baseDao) {
-		this.baseService = baseDao;
+	public void setBaseDao(BaseDao baseDao) {
+		this.baseDao = baseDao;
 	}
 }

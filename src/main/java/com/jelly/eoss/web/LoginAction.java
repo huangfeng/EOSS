@@ -1,6 +1,6 @@
 package com.jelly.eoss.web;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminUser;
 import com.jelly.eoss.model.AdminUserRolesPerms;
 import com.jelly.eoss.service.MenuService;
@@ -26,7 +26,7 @@ public class LoginAction extends BaseAction {
     private static final Logger log = LoggerFactory.getLogger(LoginAction.class);
 
 	@Autowired
-	private BaseService baseService;
+	private BaseDao baseDao;
 
 	@Autowired
 	MenuService menuService;
@@ -59,7 +59,7 @@ public class LoginAction extends BaseAction {
 				return;
 			}
 
-			AdminUser user = this.baseService.mySelectOne(AdminUser.Select, new AdminUser().setUsername(username));
+			AdminUser user = this.baseDao.mySelectOne(AdminUser.Select, new AdminUser().setUsername(username));
             if(user == null){
                 this.responseSimpleJson(response, false, "该用户不存在");
                 return;
@@ -76,8 +76,8 @@ public class LoginAction extends BaseAction {
 
 			//登录成功
             AdminUserRolesPerms userRolesPerms = new AdminUserRolesPerms();
-            List<String> roleList = this.baseService.mySelectList("_EXT.Role_QueryByUserId", user.getId());
-            List<String> permList = this.baseService.mySelectList("_EXT.Permission_QueryByUserId", user.getId());
+            List<String> roleList = this.baseDao.mySelectList("_EXT.Role_QueryByUserId", user.getId());
+            List<String> permList = this.baseDao.mySelectList("_EXT.Permission_QueryByUserId", user.getId());
 
             Set<String> roleSet = new HashSet<>();
             Set<String> permSet = new HashSet<>();
@@ -111,11 +111,11 @@ public class LoginAction extends BaseAction {
 
 	//getter and setter
 
-	public BaseService getBaseDao() {
-		return baseService;
+	public BaseDao getBaseDao() {
+		return baseDao;
 	}
 
-	public void setBaseDao(BaseService baseDao) {
-		this.baseService = baseDao;
+	public void setBaseDao(BaseDao baseDao) {
+		this.baseDao = baseDao;
 	}
 }

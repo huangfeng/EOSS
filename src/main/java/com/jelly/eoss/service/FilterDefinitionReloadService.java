@@ -1,6 +1,6 @@
 package com.jelly.eoss.service;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.filter.SecurityFilter;
 import com.jelly.eoss.model.AdminFilterDefinition;
 import com.jelly.eoss.security.FilterCore;
@@ -15,10 +15,10 @@ public class FilterDefinitionReloadService {
     private static final Logger log = LoggerFactory.getLogger(FilterDefinitionReloadService.class);
 
     @Autowired
-    private BaseService baseService;
+    private BaseDao baseDao;
 
     public FilterCore reload(){
-        AdminFilterDefinition filterDefinition = this.baseService.mySelectOne(AdminFilterDefinition.SelectByPk, 1);
+        AdminFilterDefinition filterDefinition = this.baseDao.mySelectOne(AdminFilterDefinition.SelectByPk, 1);
         if(filterDefinition == null){
             throw new RuntimeException("表filter_definition中没有id=1的记录");
         }

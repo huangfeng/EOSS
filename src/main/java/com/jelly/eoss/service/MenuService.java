@@ -1,6 +1,6 @@
 package com.jelly.eoss.service;
 
-import com.jelly.eoss.dao.BaseService;
+import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminUser;
 import com.jelly.eoss.util.Const;
 import com.jelly.eoss.util.JsonUtil;
@@ -16,7 +16,7 @@ import java.util.Set;
 @Service
 public class MenuService {
 	@Autowired
-	private BaseService baseService;
+	private BaseDao baseDao;
 
     /*
      *数据样例：
@@ -30,7 +30,7 @@ public class MenuService {
 	        return "";
         }
 
-		List<Map<String, Object>> list = this.baseService.mySelectList("_EXT.Login_QueryTreePathByUserId", user.getId());
+		List<Map<String, Object>> list = this.baseDao.mySelectList("_EXT.Login_QueryTreePathByUserId", user.getId());
 		Set<String> treeIdSet = new HashSet<String>();
 		String[] ids = null;
 		for(Map<String, Object> m : list){
@@ -117,7 +117,7 @@ public class MenuService {
 	
 	//根据条件查询子菜单
 	public String queryMenuSub(Map<String, String> pm){
-		List<Map<String, Object>> list = this.baseService.mySelectList("_EXT.Menu_QueryMenuTree", pm);
+		List<Map<String, Object>> list = this.baseDao.mySelectList("_EXT.Menu_QueryMenuTree", pm);
 		this.decorateZnode(list, pm);
 		
 //		jsonStr=[{"id":1,"name":"系统管理"},{"id":2,"name":"业务管理"}]
@@ -126,11 +126,11 @@ public class MenuService {
 		return jsonStr;
 	}
 	
-	public BaseService getBaseService() {
-		return baseService;
+	public BaseDao getBaseDao() {
+		return baseDao;
 	}
 
-	public void setBaseService(BaseService baseService) {
-		this.baseService = baseService;
+	public void setBaseDao(BaseDao baseDao) {
+		this.baseDao = baseDao;
 	}
 }
