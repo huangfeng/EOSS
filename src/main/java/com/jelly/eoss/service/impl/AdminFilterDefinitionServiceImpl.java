@@ -7,6 +7,7 @@ package com.jelly.eoss.service.impl;
 
 import com.jelly.eoss.model.AdminFilterDefinition;
 import com.jelly.eoss.service.AdminFilterDefinitionService;
+import com.jelly.eoss.dao.BaseDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ import java.util.List;
 @Repository
 public class AdminFilterDefinitionServiceImpl implements AdminFilterDefinitionService{
 	@Autowired
-    private com.jelly.eoss.dao.BaseDao baseDao;
+    private BaseDao baseDao;
 
 	@Override
 	public void insert(AdminFilterDefinition adminFilterDefinition) {
@@ -29,17 +30,17 @@ public class AdminFilterDefinitionServiceImpl implements AdminFilterDefinitionSe
 	}
 
 	@Override
-	public void UpdateWithNull(AdminFilterDefinition adminFilterDefinition) {
+	public void updateWithNull(AdminFilterDefinition adminFilterDefinition) {
         baseDao.myUpdate(AdminFilterDefinition.UpdateWithNull, adminFilterDefinition);
 	}
 
 	@Override
-	public void DeleteByPk(String pk) {
+	public void deleteByPk(String pk) {
         baseDao.myDelete(AdminFilterDefinition.DeleteByPk, pk);
 	}
 
 	@Override
-	public void DeleteByPojo(AdminFilterDefinition adminFilterDefinition) {
+	public void deleteByPojo(AdminFilterDefinition adminFilterDefinition) {
         baseDao.myDelete(AdminFilterDefinition.DeleteByPojo, adminFilterDefinition);
 	}
 

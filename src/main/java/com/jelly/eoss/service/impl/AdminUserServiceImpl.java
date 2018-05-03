@@ -7,6 +7,7 @@ package com.jelly.eoss.service.impl;
 
 import com.jelly.eoss.model.AdminUser;
 import com.jelly.eoss.service.AdminUserService;
+import com.jelly.eoss.dao.BaseDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ import java.util.List;
 @Repository
 public class AdminUserServiceImpl implements AdminUserService{
 	@Autowired
-    private com.jelly.eoss.dao.BaseDao baseDao;
+    private BaseDao baseDao;
 
 	@Override
 	public void insert(AdminUser adminUser) {
@@ -29,17 +30,17 @@ public class AdminUserServiceImpl implements AdminUserService{
 	}
 
 	@Override
-	public void UpdateWithNull(AdminUser adminUser) {
+	public void updateWithNull(AdminUser adminUser) {
         baseDao.myUpdate(AdminUser.UpdateWithNull, adminUser);
 	}
 
 	@Override
-	public void DeleteByPk(String pk) {
+	public void deleteByPk(String pk) {
         baseDao.myDelete(AdminUser.DeleteByPk, pk);
 	}
 
 	@Override
-	public void DeleteByPojo(AdminUser adminUser) {
+	public void deleteByPojo(AdminUser adminUser) {
         baseDao.myDelete(AdminUser.DeleteByPojo, adminUser);
 	}
 

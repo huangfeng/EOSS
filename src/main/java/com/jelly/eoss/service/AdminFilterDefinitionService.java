@@ -11,9 +11,9 @@ import java.util.List;
 public interface AdminFilterDefinitionService {
     public void insert(AdminFilterDefinition adminFilterDefinition);
     public void update(AdminFilterDefinition adminFilterDefinition);
-    public void UpdateWithNull(AdminFilterDefinition adminFilterDefinition);
-    public void DeleteByPk(String pk);
-    public void DeleteByPojo(AdminFilterDefinition adminFilterDefinition);
+    public void updateWithNull(AdminFilterDefinition adminFilterDefinition);
+    public void deleteByPk(String pk);
+    public void deleteByPojo(AdminFilterDefinition adminFilterDefinition);
     public List<AdminFilterDefinition> select(AdminFilterDefinition adminFilterDefinition);
     public Long SelectCount(AdminFilterDefinition adminFilterDefinition);
     public AdminFilterDefinition selectByPrimaryKey(String pk);

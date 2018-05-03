@@ -11,9 +11,9 @@ import java.util.List;
 public interface AdminMenuService {
     public void insert(AdminMenu adminMenu);
     public void update(AdminMenu adminMenu);
-    public void UpdateWithNull(AdminMenu adminMenu);
-    public void DeleteByPk(String pk);
-    public void DeleteByPojo(AdminMenu adminMenu);
+    public void updateWithNull(AdminMenu adminMenu);
+    public void deleteByPk(String pk);
+    public void deleteByPojo(AdminMenu adminMenu);
     public List<AdminMenu> select(AdminMenu adminMenu);
     public Long SelectCount(AdminMenu adminMenu);
     public AdminMenu selectByPrimaryKey(String pk);

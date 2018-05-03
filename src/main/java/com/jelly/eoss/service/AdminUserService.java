@@ -11,9 +11,9 @@ import java.util.List;
 public interface AdminUserService {
     public void insert(AdminUser adminUser);
     public void update(AdminUser adminUser);
-    public void UpdateWithNull(AdminUser adminUser);
-    public void DeleteByPk(String pk);
-    public void DeleteByPojo(AdminUser adminUser);
+    public void updateWithNull(AdminUser adminUser);
+    public void deleteByPk(String pk);
+    public void deleteByPojo(AdminUser adminUser);
     public List<AdminUser> select(AdminUser adminUser);
     public Long SelectCount(AdminUser adminUser);
     public AdminUser selectByPrimaryKey(String pk);

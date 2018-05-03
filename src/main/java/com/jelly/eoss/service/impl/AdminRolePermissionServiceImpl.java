@@ -7,6 +7,7 @@ package com.jelly.eoss.service.impl;
 
 import com.jelly.eoss.model.AdminRolePermission;
 import com.jelly.eoss.service.AdminRolePermissionService;
+import com.jelly.eoss.dao.BaseDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ import java.util.List;
 @Repository
 public class AdminRolePermissionServiceImpl implements AdminRolePermissionService{
 	@Autowired
-    private com.jelly.eoss.dao.BaseDao baseDao;
+    private BaseDao baseDao;
 
 	@Override
 	public void insert(AdminRolePermission adminRolePermission) {
@@ -29,17 +30,17 @@ public class AdminRolePermissionServiceImpl implements AdminRolePermissionServic
 	}
 
 	@Override
-	public void UpdateWithNull(AdminRolePermission adminRolePermission) {
+	public void updateWithNull(AdminRolePermission adminRolePermission) {
         baseDao.myUpdate(AdminRolePermission.UpdateWithNull, adminRolePermission);
 	}
 
 	@Override
-	public void DeleteByPk(String pk) {
+	public void deleteByPk(String pk) {
         baseDao.myDelete(AdminRolePermission.DeleteByPk, pk);
 	}
 
 	@Override
-	public void DeleteByPojo(AdminRolePermission adminRolePermission) {
+	public void deleteByPojo(AdminRolePermission adminRolePermission) {
         baseDao.myDelete(AdminRolePermission.DeleteByPojo, adminRolePermission);
 	}
 

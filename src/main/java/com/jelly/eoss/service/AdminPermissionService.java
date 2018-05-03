@@ -11,9 +11,9 @@ import java.util.List;
 public interface AdminPermissionService {
     public void insert(AdminPermission adminPermission);
     public void update(AdminPermission adminPermission);
-    public void UpdateWithNull(AdminPermission adminPermission);
-    public void DeleteByPk(String pk);
-    public void DeleteByPojo(AdminPermission adminPermission);
+    public void updateWithNull(AdminPermission adminPermission);
+    public void deleteByPk(String pk);
+    public void deleteByPojo(AdminPermission adminPermission);
     public List<AdminPermission> select(AdminPermission adminPermission);
     public Long SelectCount(AdminPermission adminPermission);
     public AdminPermission selectByPrimaryKey(String pk);
