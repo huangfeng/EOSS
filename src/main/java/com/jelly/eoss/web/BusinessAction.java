@@ -1,17 +1,17 @@
 package com.jelly.eoss.web;
 
 import com.jelly.eoss.dao.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping(value = "/business/money")
 public class BusinessAction extends BaseAction {
-	@Resource
+	@Autowired
 	private BaseService baseService;
 
     @RequestMapping(value = "/list")

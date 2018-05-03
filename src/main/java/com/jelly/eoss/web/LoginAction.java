@@ -10,23 +10,25 @@ import com.jelly.eoss.util.security.Digest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class LoginAction extends BaseAction {
     private static final Logger log = LoggerFactory.getLogger(LoginAction.class);
 
-	@Resource
+	@Autowired
 	private BaseService baseService;
 
-	@Resource
+	@Autowired
 	MenuService menuService;
 
     @RequestMapping(value = "/toLogin")

@@ -5,9 +5,9 @@ import com.jelly.eoss.model.AdminUser;
 import com.jelly.eoss.util.Const;
 import com.jelly.eoss.util.JsonUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Service
 public class MenuService {
-	@Resource
+	@Autowired
 	private BaseService baseService;
 
     /*

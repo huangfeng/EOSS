@@ -3,19 +3,19 @@ package com.jelly.eoss.web;
 import com.jelly.eoss.dao.BaseService;
 import com.jelly.eoss.service.MenuService;
 import com.jelly.eoss.util.security.Digest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping(value = "/test")
 public class TestAction extends BaseAction{
-	@Resource
+	@Autowired
 	private BaseService baseDao;
-	@Resource
+	@Autowired
 	private MenuService menuService;
 	
 	@RequestMapping(value = "abc")

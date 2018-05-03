@@ -4,9 +4,6 @@
 */
 package com.jelly.eoss.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 public class AdminUserRole {
 	public static final String Insert = "com.jelly.eoss.model.AdminUserRole.Insert";
 	public static final String Update = "com.jelly.eoss.model.AdminUserRole.Update";

@@ -6,12 +6,12 @@ import com.jelly.eoss.service.MenuService;
 import com.jelly.eoss.util.*;
 import com.jelly.eoss.util.security.Digest;
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -19,9 +19,9 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/system/user")
 public class UserAction extends BaseAction {
-    @Resource
+    @Autowired
     private BaseService baseService;
-    @Resource
+    @Autowired
     private MenuService menuService;
 
     @RequestMapping(value = "/queryUserNameAjax")
