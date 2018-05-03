@@ -3,7 +3,7 @@
 <!-- author:Collonn, Email:collonn@126.com, QQ:195358385 -->
 
 
-<mapper namespace="com.jelly.eoss.model.AdminFilterDefinition">
+<mapper namespace="AdminFilterDefinition">
 	<!-- 生成Insert -->
         	<insert id="Insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.jelly.eoss.model.AdminFilterDefinition">
 			insert into admin_filter_definition (

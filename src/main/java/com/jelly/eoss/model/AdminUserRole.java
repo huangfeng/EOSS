@@ -4,15 +4,18 @@
 */
 package com.jelly.eoss.model;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 public class AdminUserRole {
-	public static final String Insert = "com.jelly.eoss.model.AdminUserRole.Insert";
-	public static final String Update = "com.jelly.eoss.model.AdminUserRole.Update";
-	public static final String UpdateWithNull = "com.jelly.eoss.model.AdminUserRole.UpdateWithNull";
-	public static final String DeleteByPk = "com.jelly.eoss.model.AdminUserRole.DeleteByPk";
-	public static final String DeleteByPojo = "com.jelly.eoss.model.AdminUserRole.DeleteByPojo";
-	public static final String Select = "com.jelly.eoss.model.AdminUserRole.Select";
-	public static final String SelectCount = "com.jelly.eoss.model.AdminUserRole.SelectCount";
-	public static final String SelectByPk = "com.jelly.eoss.model.AdminUserRole.SelectByPk";
+	public static final String Insert = "AdminUserRole.Insert";
+	public static final String Update = "AdminUserRole.Update";
+	public static final String UpdateWithNull = "AdminUserRole.UpdateWithNull";
+	public static final String DeleteByPk = "AdminUserRole.DeleteByPk";
+	public static final String DeleteByPojo = "AdminUserRole.DeleteByPojo";
+	public static final String Select = "AdminUserRole.Select";
+	public static final String SelectCount = "AdminUserRole.SelectCount";
+	public static final String SelectByPk = "AdminUserRole.SelectByPk";
 	
 	private Integer userId;
 	

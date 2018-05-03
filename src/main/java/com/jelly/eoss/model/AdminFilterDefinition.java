@@ -4,15 +4,18 @@
 */
 package com.jelly.eoss.model;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 public class AdminFilterDefinition {
-	public static final String Insert = "com.jelly.eoss.model.AdminFilterDefinition.Insert";
-	public static final String Update = "com.jelly.eoss.model.AdminFilterDefinition.Update";
-	public static final String UpdateWithNull = "com.jelly.eoss.model.AdminFilterDefinition.UpdateWithNull";
-	public static final String DeleteByPk = "com.jelly.eoss.model.AdminFilterDefinition.DeleteByPk";
-	public static final String DeleteByPojo = "com.jelly.eoss.model.AdminFilterDefinition.DeleteByPojo";
-	public static final String Select = "com.jelly.eoss.model.AdminFilterDefinition.Select";
-	public static final String SelectCount = "com.jelly.eoss.model.AdminFilterDefinition.SelectCount";
-	public static final String SelectByPk = "com.jelly.eoss.model.AdminFilterDefinition.SelectByPk";
+	public static final String Insert = "AdminFilterDefinition.Insert";
+	public static final String Update = "AdminFilterDefinition.Update";
+	public static final String UpdateWithNull = "AdminFilterDefinition.UpdateWithNull";
+	public static final String DeleteByPk = "AdminFilterDefinition.DeleteByPk";
+	public static final String DeleteByPojo = "AdminFilterDefinition.DeleteByPojo";
+	public static final String Select = "AdminFilterDefinition.Select";
+	public static final String SelectCount = "AdminFilterDefinition.SelectCount";
+	public static final String SelectByPk = "AdminFilterDefinition.SelectByPk";
 	
 	private Integer id;
 	
