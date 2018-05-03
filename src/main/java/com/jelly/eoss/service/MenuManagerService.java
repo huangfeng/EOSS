@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
-public class MenuService {
+public class MenuManagerService {
 	@Autowired
 	private BaseDao baseDao;
 

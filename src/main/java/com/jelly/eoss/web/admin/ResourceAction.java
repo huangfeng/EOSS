@@ -1,12 +1,13 @@
-package com.jelly.eoss.web;
+package com.jelly.eoss.web.admin;
 
 import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminMenu;
-import com.jelly.eoss.service.MenuService;
+import com.jelly.eoss.service.MenuManagerService;
 import com.jelly.eoss.util.ComUtil;
 import com.jelly.eoss.util.Const;
 import com.jelly.eoss.util.DateUtil;
 import com.jelly.eoss.util.Pager;
+import com.jelly.eoss.web.BaseAction;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +27,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/system/resource")
-public class ResourceAction extends BaseAction{
+public class ResourceAction extends BaseAction {
 	private static final Logger log = LoggerFactory.getLogger(ResourceAction.class);
 
 	@Autowired
 	private BaseDao baseDao;
 	@Autowired
-	private MenuService menuService;
+	private MenuManagerService menuManagerService;
 	
 	@RequestMapping(value = "/toList")
 	public ModelAndView toList(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -90,7 +91,7 @@ public class ResourceAction extends BaseAction{
 		pm.put("openAll", "yes");
 		pm.put("checkedIds", String.valueOf(menu.getPid()));
 		pm.put("rootNocheck", "yes");
-		String zTreeNodeJson = this.menuService.queryMenuSub(pm);
+		String zTreeNodeJson = this.menuManagerService.queryMenuSub(pm);
 		
 		request.setAttribute("menu", menu);
 		request.setAttribute("zTreeNodeJson", zTreeNodeJson);
@@ -119,11 +120,11 @@ public class ResourceAction extends BaseAction{
 		this.baseDao = baseDao;
 	}
 
-	public MenuService getMenuService() {
-		return menuService;
+	public MenuManagerService getMenuManagerService() {
+		return menuManagerService;
 	}
 
-	public void setMenuService(MenuService menuService) {
-		this.menuService = menuService;
+	public void setMenuManagerService(MenuManagerService menuManagerService) {
+		this.menuManagerService = menuManagerService;
 	}
 }

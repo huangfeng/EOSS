@@ -1,8 +1,9 @@
-package com.jelly.eoss.web;
+package com.jelly.eoss.web.admin;
 
 import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminFilterDefinition;
 import com.jelly.eoss.service.FilterDefinitionReloadService;
+import com.jelly.eoss.web.BaseAction;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping(value = "/system/filterDefinition")
-public class FilterDefinitionAction extends BaseAction{
+public class FilterDefinitionAction extends BaseAction {
 	@Autowired
 	private BaseDao baseDao;
 	@Autowired

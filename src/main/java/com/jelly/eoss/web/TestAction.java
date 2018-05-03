@@ -1,7 +1,7 @@
 package com.jelly.eoss.web;
 
 import com.jelly.eoss.dao.BaseDao;
-import com.jelly.eoss.service.MenuService;
+import com.jelly.eoss.service.MenuManagerService;
 import com.jelly.eoss.util.security.Digest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class TestAction extends BaseAction{
 	@Autowired
 	private BaseDao baseDao;
 	@Autowired
-	private MenuService menuService;
+	private MenuManagerService menuManagerService;
 	
 	@RequestMapping(value = "abc")
 	public void queryRowBounds(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -24,12 +24,12 @@ public class TestAction extends BaseAction{
 	}
 	
 	//getter and setter
-	public MenuService getMenuService() {
-		return menuService;
+	public MenuManagerService getMenuManagerService() {
+		return menuManagerService;
 	}
 	
-	public void setMenuService(MenuService menuService) {
-		this.menuService = menuService;
+	public void setMenuManagerService(MenuManagerService menuManagerService) {
+		this.menuManagerService = menuManagerService;
 	}
 
 	public BaseDao getBaseDao() {

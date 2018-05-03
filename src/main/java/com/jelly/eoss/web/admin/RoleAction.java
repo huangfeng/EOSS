@@ -1,10 +1,11 @@
-package com.jelly.eoss.web;
+package com.jelly.eoss.web.admin;
 
 import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminPermission;
 import com.jelly.eoss.model.AdminRole;
-import com.jelly.eoss.service.MenuService;
+import com.jelly.eoss.service.MenuManagerService;
 import com.jelly.eoss.util.*;
+import com.jelly.eoss.web.BaseAction;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +23,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/system/role")
-public class RoleAction extends BaseAction{
+public class RoleAction extends BaseAction {
 	private static final Logger log = LoggerFactory.getLogger(RoleAction.class);
 
 	@Autowired
 	private BaseDao baseDao;
 	@Autowired
-	private MenuService menuService;
+	private MenuManagerService menuManagerService;
 	
 	@RequestMapping(value = "/queryAllAjax")
 	public void queryAllAjax(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -156,12 +157,12 @@ public class RoleAction extends BaseAction{
 		this.baseDao = baseDao;
 	}
 	
-	public MenuService getMenuService() {
-		return menuService;
+	public MenuManagerService getMenuManagerService() {
+		return menuManagerService;
 	}
 
-	public void setMenuService(MenuService menuService) {
-		this.menuService = menuService;
+	public void setMenuManagerService(MenuManagerService menuManagerService) {
+		this.menuManagerService = menuManagerService;
 	}
 
 }

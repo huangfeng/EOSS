@@ -1,10 +1,11 @@
-package com.jelly.eoss.web;
+package com.jelly.eoss.web.admin;
 
 import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminUser;
-import com.jelly.eoss.service.MenuService;
+import com.jelly.eoss.service.MenuManagerService;
 import com.jelly.eoss.util.*;
 import com.jelly.eoss.util.security.Digest;
+import com.jelly.eoss.web.BaseAction;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ public class UserAction extends BaseAction {
     @Autowired
     private BaseDao baseDao;
     @Autowired
-    private MenuService menuService;
+    private MenuManagerService menuManagerService;
 
     @RequestMapping(value = "/queryUserNameAjax")
     public void queryUserNameAjax(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -138,7 +139,7 @@ public class UserAction extends BaseAction {
         pm.put("openAll", "yes");
         pm.put("checkedIds", sb.toString());
         pm.put("withoutUrl", "y");
-        String zTreeNodeJsonResource = this.menuService.queryMenuSub(pm);
+        String zTreeNodeJsonResource = this.menuManagerService.queryMenuSub(pm);
 
         request.setAttribute("zTreeNodeJson", zTreeNodeJson);
         request.setAttribute("zTreeNodeJsonResource", zTreeNodeJsonResource);
@@ -165,7 +166,7 @@ public class UserAction extends BaseAction {
         request.getRequestDispatcher("/system/user/toList").forward(request, response);
 
         //更新用户menu菜单ids缓存
-        String menuTreeIdsOfUser = this.menuService.queryMenuTreeIdsOfUser(user);
+        String menuTreeIdsOfUser = this.menuManagerService.queryMenuTreeIdsOfUser(user);
         request.getSession().setAttribute(Const.LOGIN_MENU_TREE_IDS_KEY, menuTreeIdsOfUser);
         return null;
     }

@@ -1,12 +1,13 @@
-package com.jelly.eoss.web;
+package com.jelly.eoss.web.admin;
 
 import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminMenu;
-import com.jelly.eoss.service.MenuService;
+import com.jelly.eoss.service.MenuManagerService;
 import com.jelly.eoss.util.ComUtil;
 import com.jelly.eoss.util.Const;
 import com.jelly.eoss.util.DateUtil;
 import com.jelly.eoss.util.Pager;
+import com.jelly.eoss.web.BaseAction;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +27,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/system/menu")
-public class MenuAction extends BaseAction{
+public class MenuAction extends BaseAction {
     private static final Logger log = LoggerFactory.getLogger(MenuAction.class);
 
 	@Autowired
 	private BaseDao baseDao;
 	@Autowired
-	private MenuService menuService;
+	private MenuManagerService menuManagerService;
 	
 	//针对登录用户查询专用
 	@RequestMapping(value = "/queryByUser")
@@ -44,7 +45,7 @@ public class MenuAction extends BaseAction{
 			//所有一级菜单
 			Map<String, String> pm = this.getRequestMap(request);
 			pm.put("inIds", idsOfLoginUserMenu);
-			String jsonZTree = this.menuService.queryMenuSub(pm);
+			String jsonZTree = this.menuManagerService.queryMenuSub(pm);
 			response.getWriter().write(jsonZTree);
 		}catch(Exception e){
 			response.getWriter().write("null");
@@ -61,7 +62,7 @@ public class MenuAction extends BaseAction{
 		Map<String, String> pm = this.getRequestMap(request);
 		pm.put("inIds", idsOfLoginUserMenu);
 		pm.put("openAll", "y");
-		String jsonZTree = this.menuService.queryMenuSub(pm);
+		String jsonZTree = this.menuManagerService.queryMenuSub(pm);
 		log.debug(jsonZTree);
 		
 		response.getWriter().write(jsonZTree);
@@ -72,7 +73,7 @@ public class MenuAction extends BaseAction{
 	@RequestMapping(value = "/querySub")
 	public ModelAndView querySub(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Map<String, String> pm = this.getRequestMap(request);
-		String jsonZTree = this.menuService.queryMenuSub(pm);
+		String jsonZTree = this.menuManagerService.queryMenuSub(pm);
         log.debug(jsonZTree);
 		request.setAttribute("jsonZTree", jsonZTree);
 		
@@ -82,7 +83,7 @@ public class MenuAction extends BaseAction{
 	@RequestMapping(value = "/querySubAjax")
 	public void querySubAjax(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Map<String, String> pm = this.getRequestMap(request);
-		String jsonZTree = this.menuService.queryMenuSub(pm);
+		String jsonZTree = this.menuManagerService.queryMenuSub(pm);
 		log.debug(jsonZTree);
 		response.getWriter().write(jsonZTree);
 	}
@@ -169,7 +170,7 @@ public class MenuAction extends BaseAction{
 		pm.put("checkedIds", String.valueOf(mu.getPid()));
 		pm.put("openAll", "yes");
 		pm.put("onlyParent", "true");
-		String jsonStr = this.menuService.queryMenuSub(pm);
+		String jsonStr = this.menuManagerService.queryMenuSub(pm);
 //		Log.Debug(jsonStr);
 		
 		request.setAttribute("menu", mu);
@@ -194,12 +195,12 @@ public class MenuAction extends BaseAction{
 	}
 
 	//getter and setter
-	public MenuService getMenuService() {
-		return menuService;
+	public MenuManagerService getMenuManagerService() {
+		return menuManagerService;
 	}
 	
-	public void setMenuService(MenuService menuService) {
-		this.menuService = menuService;
+	public void setMenuManagerService(MenuManagerService menuManagerService) {
+		this.menuManagerService = menuManagerService;
 	}
 
 	public BaseDao getBaseDao() {

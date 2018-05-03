@@ -16,7 +16,7 @@ public class BaseDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public BaseDao(){
-		
+//		this.mySelectOne()
 	}
 	
 	/******************************** Start MyBatis ********************************/

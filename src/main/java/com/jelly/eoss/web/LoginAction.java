@@ -3,7 +3,7 @@ package com.jelly.eoss.web;
 import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminUser;
 import com.jelly.eoss.model.AdminUserRolesPerms;
-import com.jelly.eoss.service.MenuService;
+import com.jelly.eoss.service.MenuManagerService;
 import com.jelly.eoss.servlet.ICodeServlet;
 import com.jelly.eoss.util.Const;
 import com.jelly.eoss.util.security.Digest;
@@ -29,7 +29,7 @@ public class LoginAction extends BaseAction {
 	private BaseDao baseDao;
 
 	@Autowired
-	MenuService menuService;
+	MenuManagerService menuManagerService;
 
     @RequestMapping(value = "/toLogin")
     public void toLoginIn(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -72,7 +72,7 @@ public class LoginAction extends BaseAction {
 				return;
 			}
 
-			String menuTreeIdsOfUser = this.menuService.queryMenuTreeIdsOfUser(user);
+			String menuTreeIdsOfUser = this.menuManagerService.queryMenuTreeIdsOfUser(user);
 
 			//登录成功
             AdminUserRolesPerms userRolesPerms = new AdminUserRolesPerms();
