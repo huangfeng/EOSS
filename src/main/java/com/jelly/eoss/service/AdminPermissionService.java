@@ -15,6 +15,7 @@ public interface AdminPermissionService {
     public void deleteByPk(String pk);
     public void deleteByPojo(AdminPermission adminPermission);
     public List<AdminPermission> select(AdminPermission adminPermission);
+    public AdminPermission selectOne(AdminPermission adminPermission);
     public Long SelectCount(AdminPermission adminPermission);
     public AdminPermission selectByPrimaryKey(String pk);
 }

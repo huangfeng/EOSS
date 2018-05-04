@@ -10,11 +10,11 @@ import com.jelly.eoss.service.AdminRolePermissionService;
 import com.jelly.eoss.dao.BaseDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class AdminRolePermissionServiceImpl implements AdminRolePermissionService{
 	@Autowired
     private BaseDao baseDao;
@@ -47,6 +47,15 @@ public class AdminRolePermissionServiceImpl implements AdminRolePermissionServic
     @Override
 	public List<AdminRolePermission> select(AdminRolePermission adminRolePermission) {
         return baseDao.mySelectList(AdminRolePermission.Select, adminRolePermission);
+	}
+
+	@Override
+	public AdminRolePermission selectOne(AdminRolePermission adminRolePermission) {
+        List<AdminRolePermission> list = baseDao.mySelectList(AdminRolePermission.Select, adminRolePermission);
+        if(list == null || list.size() == 0){
+            return null;
+        }
+        return list.get(0);
 	}
 
     @Override

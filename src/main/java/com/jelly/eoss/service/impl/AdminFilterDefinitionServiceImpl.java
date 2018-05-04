@@ -10,11 +10,11 @@ import com.jelly.eoss.service.AdminFilterDefinitionService;
 import com.jelly.eoss.dao.BaseDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class AdminFilterDefinitionServiceImpl implements AdminFilterDefinitionService{
 	@Autowired
     private BaseDao baseDao;
@@ -47,6 +47,15 @@ public class AdminFilterDefinitionServiceImpl implements AdminFilterDefinitionSe
     @Override
 	public List<AdminFilterDefinition> select(AdminFilterDefinition adminFilterDefinition) {
         return baseDao.mySelectList(AdminFilterDefinition.Select, adminFilterDefinition);
+	}
+
+	@Override
+	public AdminFilterDefinition selectOne(AdminFilterDefinition adminFilterDefinition) {
+        List<AdminFilterDefinition> list = baseDao.mySelectList(AdminFilterDefinition.Select, adminFilterDefinition);
+        if(list == null || list.size() == 0){
+            return null;
+        }
+        return list.get(0);
 	}
 
     @Override

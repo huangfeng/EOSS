@@ -15,6 +15,7 @@ public interface AdminRoleService {
     public void deleteByPk(String pk);
     public void deleteByPojo(AdminRole adminRole);
     public List<AdminRole> select(AdminRole adminRole);
+    public AdminRole selectOne(AdminRole adminRole);
     public Long SelectCount(AdminRole adminRole);
     public AdminRole selectByPrimaryKey(String pk);
 }

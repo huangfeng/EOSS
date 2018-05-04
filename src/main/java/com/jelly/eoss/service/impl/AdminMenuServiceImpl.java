@@ -10,11 +10,11 @@ import com.jelly.eoss.service.AdminMenuService;
 import com.jelly.eoss.dao.BaseDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class AdminMenuServiceImpl implements AdminMenuService{
 	@Autowired
     private BaseDao baseDao;
@@ -47,6 +47,15 @@ public class AdminMenuServiceImpl implements AdminMenuService{
     @Override
 	public List<AdminMenu> select(AdminMenu adminMenu) {
         return baseDao.mySelectList(AdminMenu.Select, adminMenu);
+	}
+
+	@Override
+	public AdminMenu selectOne(AdminMenu adminMenu) {
+        List<AdminMenu> list = baseDao.mySelectList(AdminMenu.Select, adminMenu);
+        if(list == null || list.size() == 0){
+            return null;
+        }
+        return list.get(0);
 	}
 
     @Override

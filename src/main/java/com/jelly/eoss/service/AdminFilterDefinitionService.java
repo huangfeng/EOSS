@@ -15,6 +15,7 @@ public interface AdminFilterDefinitionService {
     public void deleteByPk(String pk);
     public void deleteByPojo(AdminFilterDefinition adminFilterDefinition);
     public List<AdminFilterDefinition> select(AdminFilterDefinition adminFilterDefinition);
+    public AdminFilterDefinition selectOne(AdminFilterDefinition adminFilterDefinition);
     public Long SelectCount(AdminFilterDefinition adminFilterDefinition);
     public AdminFilterDefinition selectByPrimaryKey(String pk);
 }

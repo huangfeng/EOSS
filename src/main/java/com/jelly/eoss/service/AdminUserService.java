@@ -15,6 +15,7 @@ public interface AdminUserService {
     public void deleteByPk(String pk);
     public void deleteByPojo(AdminUser adminUser);
     public List<AdminUser> select(AdminUser adminUser);
+    public AdminUser selectOne(AdminUser adminUser);
     public Long SelectCount(AdminUser adminUser);
     public AdminUser selectByPrimaryKey(String pk);
 }

@@ -10,11 +10,11 @@ import com.jelly.eoss.service.AdminRoleService;
 import com.jelly.eoss.dao.BaseDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class AdminRoleServiceImpl implements AdminRoleService{
 	@Autowired
     private BaseDao baseDao;
@@ -47,6 +47,15 @@ public class AdminRoleServiceImpl implements AdminRoleService{
     @Override
 	public List<AdminRole> select(AdminRole adminRole) {
         return baseDao.mySelectList(AdminRole.Select, adminRole);
+	}
+
+	@Override
+	public AdminRole selectOne(AdminRole adminRole) {
+        List<AdminRole> list = baseDao.mySelectList(AdminRole.Select, adminRole);
+        if(list == null || list.size() == 0){
+            return null;
+        }
+        return list.get(0);
 	}
 
     @Override

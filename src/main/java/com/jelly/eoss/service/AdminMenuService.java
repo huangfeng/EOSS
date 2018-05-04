@@ -15,6 +15,7 @@ public interface AdminMenuService {
     public void deleteByPk(String pk);
     public void deleteByPojo(AdminMenu adminMenu);
     public List<AdminMenu> select(AdminMenu adminMenu);
+    public AdminMenu selectOne(AdminMenu adminMenu);
     public Long SelectCount(AdminMenu adminMenu);
     public AdminMenu selectByPrimaryKey(String pk);
 }
