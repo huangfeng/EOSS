@@ -9,7 +9,7 @@
 </script>
 </head>
 <body class="easyui-layout">
-	<input type="hidden" id="userName" value="${EossLoginUser.user.username}" />
+	<input type="hidden" id="userName" value="${SessionLoginUser.user.username}" />
 
 	<!-- north -->
 	<div data-options="region:'north',split:true,href:'${BASE_PATH}/system/layout/northAjax'" style="height:50px;">
