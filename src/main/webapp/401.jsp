@@ -9,7 +9,7 @@
 		<table class="tableCenter">
 			<tr>
 				<td>
-					<h1>401！Not AuthorizationInfo</h1>
+					401！未授权
 				</td>
 			</tr>
 		</table>

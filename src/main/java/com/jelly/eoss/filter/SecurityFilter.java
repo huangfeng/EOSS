@@ -65,8 +65,8 @@ public class SecurityFilter implements Filter {
                 response.getWriter().write(html);
                 return;
             }else{
-//                request.getRequestDispatcher("/401.jsp").forward(request, response);
-                response.getWriter().write("401！Not AuthorizationInfo");
+                request.getRequestDispatcher("/401.jsp").forward(request, response);
+//                response.getWriter().write("401！Not AuthorizationInfo");
             }
         }
 	}

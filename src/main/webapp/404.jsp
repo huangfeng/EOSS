@@ -9,7 +9,7 @@
 		<table class="tableCenter">
 			<tr>
 				<td>
-					404！
+					404啦！所请求的页面不存在或已被删除！！
 				</td>
 			</tr>
 		</table>
