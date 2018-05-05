@@ -8,7 +8,7 @@
         	<insert id="Insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.jelly.eoss.model.AdminUser">
 			insert into admin_user (
 				<trim suffixOverrides=",">
-                            <if test="id != null">
+                            <if test="id != null and id != ''">
 							id,
                             </if>
 
@@ -31,7 +31,7 @@
 				</trim>
 			) values (
 				<trim suffixOverrides=",">
-                            <if test="id != null">
+                            <if test="id != null and id != ''">
                                 #{id},
                             </if>
                             <if test="username != null and username != ''">
@@ -55,7 +55,7 @@
 	<update id="Update" parameterType="com.jelly.eoss.model.AdminUser">
 		update admin_user set 
 		<trim suffixOverrides=",">
-                    <if test="id != null">
+                    <if test="id != null and id != ''">
                     	id = #{id},
                     </if>
                     <if test="username != null and username != ''">
@@ -110,7 +110,7 @@
 		from admin_user
 		where
         <trim suffixOverrides="and">
-                <if test="id != null">
+                <if test="id != null and id != ''">
 					id = #{id} and
                 </if>
                 <if test="username != null and username != ''">
@@ -141,7 +141,7 @@
 	
 	<!-- 生成Select通用查询条件 -->
 	<sql id="SelectWheres">
-                <if test="id != null">
+                <if test="id != null and id != ''">
                     and id = #{id}
                 </if>
                 <if test="username != null and username != ''">

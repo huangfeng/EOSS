@@ -17,26 +17,26 @@ public class AdminUserRole {
 	public static final String SelectCount = "AdminUserRole.SelectCount";
 	public static final String SelectByPk = "AdminUserRole.SelectByPk";
 	
-	private Integer userId;
+	private String userId;
 	
-	private Integer roleId;
+	private String roleId;
 
 
-	public AdminUserRole setUserId (Integer userId) {
+	public AdminUserRole setUserId (String userId) {
 		this.userId = userId;
 		return this;
 	}
 	
-	public Integer getUserId () {
+	public String getUserId () {
 		return this.userId;
 	}
 
-	public AdminUserRole setRoleId (Integer roleId) {
+	public AdminUserRole setRoleId (String roleId) {
 		this.roleId = roleId;
 		return this;
 	}
 	
-	public Integer getRoleId () {
+	public String getRoleId () {
 		return this.roleId;
 	}
 

@@ -4,6 +4,7 @@ import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminPermission;
 import com.jelly.eoss.util.ComUtil;
 import com.jelly.eoss.util.Const;
+import com.jelly.eoss.util.IdGenerator;
 import com.jelly.eoss.util.Pager;
 import com.jelly.eoss.web.BaseAction;
 import org.apache.ibatis.session.RowBounds;
@@ -51,7 +52,7 @@ public class PermissionAction extends BaseAction {
 	
 	@RequestMapping(value = "/add")
 	public ModelAndView add(HttpServletRequest request, HttpServletResponse response, AdminPermission permission) throws Exception{
-		int id = ComUtil.QueryNextID("id", "permission");
+		String id = IdGenerator.id();
 		permission.setId(id);
 		this.baseDao.myInsert(AdminPermission.Insert, permission);
 		request.getRequestDispatcher("/system/permission/toList").forward(request, response);

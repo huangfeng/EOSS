@@ -17,26 +17,26 @@ public class AdminUserMenu {
 	public static final String SelectCount = "AdminUserMenu.SelectCount";
 	public static final String SelectByPk = "AdminUserMenu.SelectByPk";
 	
-	private Integer menuId;
+	private String menuId;
 	
-	private Integer userId;
+	private String userId;
 
 
-	public AdminUserMenu setMenuId (Integer menuId) {
+	public AdminUserMenu setMenuId (String menuId) {
 		this.menuId = menuId;
 		return this;
 	}
 	
-	public Integer getMenuId () {
+	public String getMenuId () {
 		return this.menuId;
 	}
 
-	public AdminUserMenu setUserId (Integer userId) {
+	public AdminUserMenu setUserId (String userId) {
 		this.userId = userId;
 		return this;
 	}
 	
-	public Integer getUserId () {
+	public String getUserId () {
 		return this.userId;
 	}
 

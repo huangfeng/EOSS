@@ -8,21 +8,21 @@
     <insert id="Insert" parameterType="com.jelly.eoss.model.AdminRolePermission">
 			insert into admin_role_permission (
 				<trim suffixOverrides=",">
-                            <if test="permissionId != null">
+                            <if test="permissionId != null and permissionId != ''">
 							permission_id,
                             </if>
 
-                            <if test="roleId != null">
+                            <if test="roleId != null and roleId != ''">
 							role_id,
                             </if>
 
 				</trim>
 			) values (
 				<trim suffixOverrides=",">
-                            <if test="permissionId != null">
+                            <if test="permissionId != null and permissionId != ''">
                                 #{permissionId},
                             </if>
-                            <if test="roleId != null">
+                            <if test="roleId != null and roleId != ''">
                                 #{roleId},
                             </if>
 				</trim>
@@ -43,10 +43,10 @@
 		from admin_role_permission
 		where
         <trim suffixOverrides="and">
-                <if test="permissionId != null">
+                <if test="permissionId != null and permissionId != ''">
 					permission_id = #{permissionId} and
                 </if>
-                <if test="roleId != null">
+                <if test="roleId != null and roleId != ''">
 					role_id = #{roleId} and
                 </if>
 		</trim>
@@ -62,10 +62,10 @@
 	
 	<!-- 生成Select通用查询条件 -->
 	<sql id="SelectWheres">
-                <if test="permissionId != null">
+                <if test="permissionId != null and permissionId != ''">
                     and permission_id = #{permissionId}
                 </if>
-                <if test="roleId != null">
+                <if test="roleId != null and roleId != ''">
                     and role_id = #{roleId}
                 </if>
 	</sql>

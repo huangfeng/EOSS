@@ -78,7 +78,7 @@ public class UserAction extends BaseAction {
             return mv;
         }
 
-        int id = ComUtil.QueryNextID("id", "user");
+        String id = IdGenerator.id();
 
         //插入用户
         user.setId(id);
@@ -103,7 +103,7 @@ public class UserAction extends BaseAction {
         AdminUser user = this.baseDao.mySelectOne(AdminUser.SelectByPk, id);
 
         //查询该用户已拥有的角色
-        String sql = "select * from user_role where user_id = ?";
+        String sql = "select * from admin_user_role where user_id = ?";
         List<Map<String, Object>> roleOldList = this.baseDao.jdQueryForList(sql, id);
         Set<String> roleOldSet = new HashSet<String>();
         for (Map<String, Object> m : roleOldList) {
@@ -123,7 +123,7 @@ public class UserAction extends BaseAction {
         String zTreeNodeJson = JsonUtil.toJson(roleList);
 
         //将该角色已有菜单资源用逗号连接成一个字符串，如1,2,3,4,5,6
-        String sqlMenu = "select menu_id as id from user_menu where user_id = ?";
+        String sqlMenu = "select menu_id as id from admin_user_menu where user_id = ?";
         List<Map<String, Object>> resourceIdsOldList = this.baseDao.jdQueryForList(sqlMenu, id);
         StringBuilder sb = new StringBuilder();
         for (Map<String, Object> m : resourceIdsOldList) {
@@ -172,7 +172,7 @@ public class UserAction extends BaseAction {
     }
 
     //批量插入用户对应的角色，只选择用JdbcTemplate的批量更新方法，以保证高性能
-    private void batchInsertUserRole(Integer userId, String roleIdsStr) {
+    private void batchInsertUserRole(String userId, String roleIdsStr) {
         String sqlDelete = "delete from user_role where user_id = ?";
         this.baseDao.jdDelete(sqlDelete, userId);
 
@@ -198,7 +198,7 @@ public class UserAction extends BaseAction {
     }
 
     //批量插入用户对应的资源，只选择用JdbcTemplate的批量更新方法，以保证高性能
-    private void batchInsertUserResource(int userId, String resourceIdsStr) {
+    private void batchInsertUserResource(String userId, String resourceIdsStr) {
         String sqlDelete = "delete from user_menu where user_id = ?";
         this.baseDao.jdDelete(sqlDelete, userId);
 

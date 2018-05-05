@@ -8,11 +8,11 @@
         	<insert id="Insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.jelly.eoss.model.AdminMenu">
 			insert into admin_menu (
 				<trim suffixOverrides=",">
-                            <if test="id != null">
+                            <if test="id != null and id != ''">
 							id,
                             </if>
 
-                            <if test="pid != null">
+                            <if test="pid != null and pid != ''">
 							pid,
                             </if>
 
@@ -47,10 +47,10 @@
 				</trim>
 			) values (
 				<trim suffixOverrides=",">
-                            <if test="id != null">
+                            <if test="id != null and id != ''">
                                 #{id},
                             </if>
-                            <if test="pid != null">
+                            <if test="pid != null and pid != ''">
                                 #{pid},
                             </if>
                             <if test="name != null and name != ''">
@@ -83,10 +83,10 @@
 	<update id="Update" parameterType="com.jelly.eoss.model.AdminMenu">
 		update admin_menu set 
 		<trim suffixOverrides=",">
-                    <if test="id != null">
+                    <if test="id != null and id != ''">
                     	id = #{id},
                     </if>
-                    <if test="pid != null">
+                    <if test="pid != null and pid != ''">
                     	pid = #{pid},
                     </if>
                     <if test="name != null and name != ''">
@@ -154,10 +154,10 @@
 		from admin_menu
 		where
         <trim suffixOverrides="and">
-                <if test="id != null">
+                <if test="id != null and id != ''">
 					id = #{id} and
                 </if>
-                <if test="pid != null">
+                <if test="pid != null and pid != ''">
 					pid = #{pid} and
                 </if>
                 <if test="name != null and name != ''">
@@ -201,10 +201,10 @@
 	
 	<!-- 生成Select通用查询条件 -->
 	<sql id="SelectWheres">
-                <if test="id != null">
+                <if test="id != null and id != ''">
                     and id = #{id}
                 </if>
-                <if test="pid != null">
+                <if test="pid != null and pid != ''">
                     and pid = #{pid}
                 </if>
                 <if test="name != null and name != ''">

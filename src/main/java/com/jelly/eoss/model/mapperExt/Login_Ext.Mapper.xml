@@ -14,7 +14,7 @@
 		and m.password = #{password}
 	</select>
 	
-	<select id="Login_QueryTreePathByUserId" parameterType="int" resultType="LinkedHashMap">
+	<select id="Login_QueryTreePathByUserId" parameterType="String" resultType="LinkedHashMap">
 		SELECT m.path AS "ids"
 		FROM admin_user u
 		INNER JOIN admin_user_menu um ON u.ID = um.USER_ID

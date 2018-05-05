@@ -8,7 +8,7 @@
         	<insert id="Insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.jelly.eoss.model.AdminFilterDefinition">
 			insert into admin_filter_definition (
 				<trim suffixOverrides=",">
-                            <if test="id != null">
+                            <if test="id != null and id != ''">
 							id,
                             </if>
 
@@ -19,7 +19,7 @@
 				</trim>
 			) values (
 				<trim suffixOverrides=",">
-                            <if test="id != null">
+                            <if test="id != null and id != ''">
                                 #{id},
                             </if>
                             <if test="rule != null and rule != ''">
@@ -34,7 +34,7 @@
 	<update id="Update" parameterType="com.jelly.eoss.model.AdminFilterDefinition">
 		update admin_filter_definition set 
 		<trim suffixOverrides=",">
-                    <if test="id != null">
+                    <if test="id != null and id != ''">
                     	id = #{id},
                     </if>
                     <if test="rule != null and rule != ''">
@@ -77,7 +77,7 @@
 		from admin_filter_definition
 		where
         <trim suffixOverrides="and">
-                <if test="id != null">
+                <if test="id != null and id != ''">
 					id = #{id} and
                 </if>
                 <if test="rule != null and rule != ''">
@@ -96,7 +96,7 @@
 	
 	<!-- 生成Select通用查询条件 -->
 	<sql id="SelectWheres">
-                <if test="id != null">
+                <if test="id != null and id != ''">
                     and id = #{id}
                 </if>
                 <if test="rule != null and rule != ''">

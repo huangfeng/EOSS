@@ -8,21 +8,21 @@
     <insert id="Insert" parameterType="com.jelly.eoss.model.AdminUserMenu">
 			insert into admin_user_menu (
 				<trim suffixOverrides=",">
-                            <if test="menuId != null">
+                            <if test="menuId != null and menuId != ''">
 							menu_id,
                             </if>
 
-                            <if test="userId != null">
+                            <if test="userId != null and userId != ''">
 							user_id,
                             </if>
 
 				</trim>
 			) values (
 				<trim suffixOverrides=",">
-                            <if test="menuId != null">
+                            <if test="menuId != null and menuId != ''">
                                 #{menuId},
                             </if>
-                            <if test="userId != null">
+                            <if test="userId != null and userId != ''">
                                 #{userId},
                             </if>
 				</trim>
@@ -43,10 +43,10 @@
 		from admin_user_menu
 		where
         <trim suffixOverrides="and">
-                <if test="menuId != null">
+                <if test="menuId != null and menuId != ''">
 					menu_id = #{menuId} and
                 </if>
-                <if test="userId != null">
+                <if test="userId != null and userId != ''">
 					user_id = #{userId} and
                 </if>
 		</trim>
@@ -62,10 +62,10 @@
 	
 	<!-- 生成Select通用查询条件 -->
 	<sql id="SelectWheres">
-                <if test="menuId != null">
+                <if test="menuId != null and menuId != ''">
                     and menu_id = #{menuId}
                 </if>
-                <if test="userId != null">
+                <if test="userId != null and userId != ''">
                     and user_id = #{userId}
                 </if>
 	</sql>

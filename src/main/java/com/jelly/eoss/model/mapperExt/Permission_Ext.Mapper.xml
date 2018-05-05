@@ -20,7 +20,7 @@
 		<include refid="Permission_QueryPermissionPage_Body"/>
 	</select>
 
-	<select id="Permission_QueryByUserId" parameterType="Integer" resultType="String">
+	<select id="Permission_QueryByUserId" parameterType="String" resultType="String">
 		SELECT DISTINCT d.name
 		FROM admin_user_role a
 		INNER JOIN admin_role b ON a.role_id = b.id

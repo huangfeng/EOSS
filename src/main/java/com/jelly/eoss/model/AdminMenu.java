@@ -17,9 +17,9 @@ public class AdminMenu {
 	public static final String SelectCount = "AdminMenu.SelectCount";
 	public static final String SelectByPk = "AdminMenu.SelectByPk";
 	
-	private Integer id;
+	private String id;
 	
-	private Integer pid;
+	private String pid;
 	
 	private String name;
 	
@@ -36,21 +36,21 @@ public class AdminMenu {
 	private String createDatetime;
 
 
-	public AdminMenu setId (Integer id) {
+	public AdminMenu setId (String id) {
 		this.id = id;
 		return this;
 	}
 	
-	public Integer getId () {
+	public String getId () {
 		return this.id;
 	}
 
-	public AdminMenu setPid (Integer pid) {
+	public AdminMenu setPid (String pid) {
 		this.pid = pid;
 		return this;
 	}
 	
-	public Integer getPid () {
+	public String getPid () {
 		return this.pid;
 	}
 

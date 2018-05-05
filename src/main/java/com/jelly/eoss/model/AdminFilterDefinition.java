@@ -17,17 +17,17 @@ public class AdminFilterDefinition {
 	public static final String SelectCount = "AdminFilterDefinition.SelectCount";
 	public static final String SelectByPk = "AdminFilterDefinition.SelectByPk";
 	
-	private Integer id;
+	private String id;
 	
 	private String rule;
 
 
-	public AdminFilterDefinition setId (Integer id) {
+	public AdminFilterDefinition setId (String id) {
 		this.id = id;
 		return this;
 	}
 	
-	public Integer getId () {
+	public String getId () {
 		return this.id;
 	}
 

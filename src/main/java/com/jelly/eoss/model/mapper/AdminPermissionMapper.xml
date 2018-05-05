@@ -8,7 +8,7 @@
         	<insert id="Insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.jelly.eoss.model.AdminPermission">
 			insert into admin_permission (
 				<trim suffixOverrides=",">
-                            <if test="id != null">
+                            <if test="id != null and id != ''">
 							id,
                             </if>
 
@@ -19,7 +19,7 @@
 				</trim>
 			) values (
 				<trim suffixOverrides=",">
-                            <if test="id != null">
+                            <if test="id != null and id != ''">
                                 #{id},
                             </if>
                             <if test="name != null and name != ''">
@@ -34,7 +34,7 @@
 	<update id="Update" parameterType="com.jelly.eoss.model.AdminPermission">
 		update admin_permission set 
 		<trim suffixOverrides=",">
-                    <if test="id != null">
+                    <if test="id != null and id != ''">
                     	id = #{id},
                     </if>
                     <if test="name != null and name != ''">
@@ -77,7 +77,7 @@
 		from admin_permission
 		where
         <trim suffixOverrides="and">
-                <if test="id != null">
+                <if test="id != null and id != ''">
 					id = #{id} and
                 </if>
                 <if test="name != null and name != ''">
@@ -96,7 +96,7 @@
 	
 	<!-- 生成Select通用查询条件 -->
 	<sql id="SelectWheres">
-                <if test="id != null">
+                <if test="id != null and id != ''">
                     and id = #{id}
                 </if>
                 <if test="name != null and name != ''">

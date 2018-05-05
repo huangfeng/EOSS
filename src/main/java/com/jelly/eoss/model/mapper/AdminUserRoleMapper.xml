@@ -8,21 +8,21 @@
     <insert id="Insert" parameterType="com.jelly.eoss.model.AdminUserRole">
 			insert into admin_user_role (
 				<trim suffixOverrides=",">
-                            <if test="userId != null">
+                            <if test="userId != null and userId != ''">
 							user_id,
                             </if>
 
-                            <if test="roleId != null">
+                            <if test="roleId != null and roleId != ''">
 							role_id,
                             </if>
 
 				</trim>
 			) values (
 				<trim suffixOverrides=",">
-                            <if test="userId != null">
+                            <if test="userId != null and userId != ''">
                                 #{userId},
                             </if>
-                            <if test="roleId != null">
+                            <if test="roleId != null and roleId != ''">
                                 #{roleId},
                             </if>
 				</trim>
@@ -43,10 +43,10 @@
 		from admin_user_role
 		where
         <trim suffixOverrides="and">
-                <if test="userId != null">
+                <if test="userId != null and userId != ''">
 					user_id = #{userId} and
                 </if>
-                <if test="roleId != null">
+                <if test="roleId != null and roleId != ''">
 					role_id = #{roleId} and
                 </if>
 		</trim>
@@ -62,10 +62,10 @@
 	
 	<!-- 生成Select通用查询条件 -->
 	<sql id="SelectWheres">
-                <if test="userId != null">
+                <if test="userId != null and userId != ''">
                     and user_id = #{userId}
                 </if>
-                <if test="roleId != null">
+                <if test="roleId != null and roleId != ''">
                     and role_id = #{roleId}
                 </if>
 	</sql>

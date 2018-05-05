@@ -17,17 +17,17 @@ public class AdminPermission {
 	public static final String SelectCount = "AdminPermission.SelectCount";
 	public static final String SelectByPk = "AdminPermission.SelectByPk";
 	
-	private Integer id;
+	private String id;
 	
 	private String name;
 
 
-	public AdminPermission setId (Integer id) {
+	public AdminPermission setId (String id) {
 		this.id = id;
 		return this;
 	}
 	
-	public Integer getId () {
+	public String getId () {
 		return this.id;
 	}
 

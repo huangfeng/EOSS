@@ -17,19 +17,19 @@ public class AdminRole {
 	public static final String SelectCount = "AdminRole.SelectCount";
 	public static final String SelectByPk = "AdminRole.SelectByPk";
 	
-	private Integer id;
+	private String id;
 	
 	private String name;
 	
 	private String createDatetime;
 
 
-	public AdminRole setId (Integer id) {
+	public AdminRole setId (String id) {
 		this.id = id;
 		return this;
 	}
 	
-	public Integer getId () {
+	public String getId () {
 		return this.id;
 	}
 

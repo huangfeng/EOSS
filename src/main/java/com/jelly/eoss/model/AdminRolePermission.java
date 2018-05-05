@@ -17,26 +17,26 @@ public class AdminRolePermission {
 	public static final String SelectCount = "AdminRolePermission.SelectCount";
 	public static final String SelectByPk = "AdminRolePermission.SelectByPk";
 	
-	private Integer permissionId;
+	private String permissionId;
 	
-	private Integer roleId;
+	private String roleId;
 
 
-	public AdminRolePermission setPermissionId (Integer permissionId) {
+	public AdminRolePermission setPermissionId (String permissionId) {
 		this.permissionId = permissionId;
 		return this;
 	}
 	
-	public Integer getPermissionId () {
+	public String getPermissionId () {
 		return this.permissionId;
 	}
 
-	public AdminRolePermission setRoleId (Integer roleId) {
+	public AdminRolePermission setRoleId (String roleId) {
 		this.roleId = roleId;
 		return this;
 	}
 	
-	public Integer getRoleId () {
+	public String getRoleId () {
 		return this.roleId;
 	}
 

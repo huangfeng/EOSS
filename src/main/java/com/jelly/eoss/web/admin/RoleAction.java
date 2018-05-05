@@ -71,7 +71,7 @@ public class RoleAction extends BaseAction {
 
 	@RequestMapping(value = "/add")
 	public ModelAndView add(HttpServletRequest request, HttpServletResponse response, AdminRole role) throws Exception{
-		int id = ComUtil.QueryNextID("id", "role");
+		String id = IdGenerator.id();
 		String permissionIdsStr = request.getParameter("permissionIds");
 		
 		//插入角色
@@ -123,7 +123,7 @@ public class RoleAction extends BaseAction {
 	}
 	
 	//批量插入角色对应的权限，只选择用JdbcTemplate的批量更新方法，以保证高性能
-	private void batchInsertRolePermission(int roleId, String permissionIdsStr){
+	private void batchInsertRolePermission(String roleId, String permissionIdsStr){
 		String sqlDelete = "delete from role_permission where role_id = ?";
 		this.baseDao.jdDelete(sqlDelete, roleId);
 		

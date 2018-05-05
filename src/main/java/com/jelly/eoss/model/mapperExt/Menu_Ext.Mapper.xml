@@ -33,7 +33,7 @@
 	</select>
 	
 	<!-- 根据path查询某菜单下的所有子菜单(即子树，包括该菜单) -->
-	<select id="Menu_QueryAllSubMenu" parameterType="Integer" resultType="LinkedHashMap">
+	<select id="Menu_QueryAllSubMenu" parameterType="String" resultType="LinkedHashMap">
 		SELECT m.id as "id"
 		FROM admin_menu m
 		WHERE 1 = 1

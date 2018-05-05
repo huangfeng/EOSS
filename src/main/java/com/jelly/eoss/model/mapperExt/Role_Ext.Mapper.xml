@@ -30,10 +30,10 @@
 	<select id="Role_QueryAllPermissionWithRole" parameterType="HashMap" resultType="LinkedHashMap">
 		SELECT p.id AS 'id', p.NAME AS 'name', rp.ROLE_ID AS 'roleId'
 		FROM admin_permission p
-		LEFT JOIN role_permission rp ON p.ID = rp.PERMISSION_ID AND rp.ROLE_ID = #{id}
+		LEFT JOIN admin_role_permission rp ON p.ID = rp.PERMISSION_ID AND rp.ROLE_ID = #{id}
 	</select>
 
-	<select id="Role_QueryByUserId" parameterType="Integer" resultType="String">
+	<select id="Role_QueryByUserId" parameterType="String" resultType="String">
 		SELECT DISTINCT b.name
 		FROM admin_user_role a INNER JOIN admin_role b ON a.role_id = b.id
 		WHERE 1 = 1

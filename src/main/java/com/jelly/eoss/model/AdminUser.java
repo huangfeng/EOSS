@@ -17,7 +17,7 @@ public class AdminUser {
 	public static final String SelectCount = "AdminUser.SelectCount";
 	public static final String SelectByPk = "AdminUser.SelectByPk";
 	
-	private Integer id;
+	private String id;
 	
 	private String username;
 	
@@ -28,12 +28,12 @@ public class AdminUser {
 	private String createDatetime;
 
 
-	public AdminUser setId (Integer id) {
+	public AdminUser setId (String id) {
 		this.id = id;
 		return this;
 	}
 	
-	public Integer getId () {
+	public String getId () {
 		return this.id;
 	}
 

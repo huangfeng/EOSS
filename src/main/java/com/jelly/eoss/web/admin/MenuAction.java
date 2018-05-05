@@ -3,10 +3,7 @@ package com.jelly.eoss.web.admin;
 import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminMenu;
 import com.jelly.eoss.service.MenuManagerService;
-import com.jelly.eoss.util.ComUtil;
-import com.jelly.eoss.util.Const;
-import com.jelly.eoss.util.DateUtil;
-import com.jelly.eoss.util.Pager;
+import com.jelly.eoss.util.*;
 import com.jelly.eoss.web.BaseAction;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
@@ -114,7 +111,7 @@ public class MenuAction extends BaseAction {
 	
 	@RequestMapping(value = "/add")
 	public ModelAndView add(HttpServletRequest request, HttpServletResponse response, AdminMenu menu) throws ServletException, IOException{
-		int id = ComUtil.QueryNextID("id", "menu");
+		String id = IdGenerator.id();
 		menu.setId(id);
 		menu.setLeaf(0);
 		menu.setPath(menu.getPath() + "#" + id);
@@ -182,8 +179,8 @@ public class MenuAction extends BaseAction {
 	@RequestMapping(value = "/update")
 	public ModelAndView update(HttpServletRequest request, HttpServletResponse response, AdminMenu menu) throws ServletException, IOException{
 		//如果是根菜单，则只能更新菜单名
-		if(menu.getId() == 1){
-			menu.setPid(-1);
+		if(menu.getId() == "1"){
+			menu.setPid("-1");
 		}
 		
 		menu.setLeaf(0);
