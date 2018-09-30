@@ -2,6 +2,7 @@ package com.jelly.eoss.web.admin;
 
 import com.jelly.eoss.dao.BaseDao;
 import com.jelly.eoss.model.AdminUser;
+import com.jelly.eoss.model.AdminUserRolesPerms;
 import com.jelly.eoss.service.MenuManagerService;
 import com.jelly.eoss.util.*;
 import com.jelly.eoss.util.security.Digest;
@@ -93,6 +94,22 @@ public class UserAction extends BaseAction {
         this.batchInsertUserResource(user.getId(), resourcesIds);
         request.getRequestDispatcher("/system/user/toList").forward(request, response);
         return null;
+    }
+
+    @RequestMapping(value = "/toPasswordUpdate")
+    public ModelAndView toPasswordChange(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        AdminUserRolesPerms adminUserRolesPerms = (AdminUserRolesPerms) request.getSession().getAttribute(Const.LOGIN_SESSION_KEY);
+        request.setAttribute("user", adminUserRolesPerms.getUser());
+        return new ModelAndView("/system/passwordUpdate.jsp");
+    }
+
+    @RequestMapping(value = "/passwordUpdate")
+    public void passwordChange(HttpServletRequest request, HttpServletResponse response, AdminUser user) throws Exception {
+        AdminUser u = this.baseDao.mySelectOne(AdminUser.SelectByPk, user.getId());
+        u.setSalt(new Random().nextInt(1000) + "");
+        u.setPassword(Digest.GetMD5(user.getPassword() + u.getSalt()));
+        this.baseDao.myUpdate(AdminUser.Update, u);
+        request.getRequestDispatcher("/success.jsp").forward(request, response);
     }
 
     @RequestMapping(value = "/toUpdate")
